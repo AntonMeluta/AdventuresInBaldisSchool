@@ -1,10 +1,13 @@
+using System.Collections;
 using UnityEngine;
 
-public abstract class NpcBaseState : MonoBehaviour
+public abstract class NpcBaseState
 {
-    public abstract void EnterState(/*PlayerController_FSM player*/);
+    public abstract void EnterState(NpcController npc);
 
-    public abstract void Update(/*PlayerController_FSM player*/);
+    public abstract void Update(NpcController npc);
 
-    public abstract void OnCollisionEnter(/*PlayerController_FSM player*/);
+    public abstract bool CanSeePlayer(NpcController npc);
+
+    public abstract void OnCollisionEnter(NpcController npc, Collision collision);
 }
