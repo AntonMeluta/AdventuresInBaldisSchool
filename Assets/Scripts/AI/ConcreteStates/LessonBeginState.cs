@@ -22,7 +22,6 @@ public class LessonBeginState : NpcBaseState
     public override void Update(NpcController npc)
     {
         time += Time.deltaTime;
-        Debug.Log("time = " + time);
         if (time > durationLessons)
             npc.TransitionToState(npc.patrolState);
     }

@@ -136,6 +136,8 @@ GameObject:
   - component: {fileID: 122058058}
   - component: {fileID: 122058057}
   - component: {fileID: 122058056}
+  - component: {fileID: 122058060}
+  - component: {fileID: 122058059}
   m_Layer: 7
   m_Name: Hooligan
   m_TagString: Untagged
@@ -259,6 +261,44 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.062051, y: 4.6193156, z: 0.19999999}
   m_Center: {x: 0.050070327, y: -0.25034186, z: 0}
+--- !u!114 &122058059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122058053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaef9696a2d5c684382d0dc50eb89ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &122058060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122058053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4804cdfd46ce2324ca8d2c8ea6443491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeAi: 2
+  targets:
+  - {fileID: 8590240252905562915}
+  - {fileID: 8590240252253849056}
+  - {fileID: 8590240251952908734}
+  - {fileID: 8590240252457384272}
+  - {fileID: 8590240252667223273}
+  - {fileID: 8590240253709556352}
+  - {fileID: 8590240253747876145}
+  - {fileID: 8590240252494075242}
+  minBorderInterval: 10
+  maxBorderInterval: 25
+  goodFace: {fileID: 0}
+  evilFace: {fileID: 0}
 --- !u!1 &213888786
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,6 +312,8 @@ GameObject:
   - component: {fileID: 213888791}
   - component: {fileID: 213888790}
   - component: {fileID: 213888789}
+  - component: {fileID: 213888793}
+  - component: {fileID: 213888792}
   m_Layer: 7
   m_Name: Girl
   m_TagString: Untagged
@@ -396,6 +438,45 @@ CapsuleCollider:
   m_Height: 3.904618
   m_Direction: 1
   m_Center: {x: 0.11416709, y: -0.43248945, z: 0}
+--- !u!114 &213888792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213888786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a3f25ca4868a141a788b04ddfe69f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windowWithQuestinos: {fileID: 0}
+--- !u!114 &213888793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213888786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4804cdfd46ce2324ca8d2c8ea6443491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeAi: 3
+  targets:
+  - {fileID: 8590240252905562915}
+  - {fileID: 8590240252253849056}
+  - {fileID: 8590240251952908734}
+  - {fileID: 8590240252457384272}
+  - {fileID: 8590240252667223273}
+  - {fileID: 8590240253709556352}
+  - {fileID: 8590240253747876145}
+  - {fileID: 8590240252494075242}
+  minBorderInterval: 10
+  maxBorderInterval: 25
+  goodFace: {fileID: 0}
+  evilFace: {fileID: 0}
 --- !u!1 &398667962
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +490,8 @@ GameObject:
   - component: {fileID: 398667967}
   - component: {fileID: 398667966}
   - component: {fileID: 398667965}
+  - component: {fileID: 398667969}
+  - component: {fileID: 398667968}
   m_Layer: 7
   m_Name: Principal
   m_TagString: Untagged
@@ -533,6 +616,45 @@ CapsuleCollider:
   m_Height: 4.4604473
   m_Direction: 1
   m_Center: {x: 0.032727804, y: -0.16613656, z: 0}
+--- !u!114 &398667968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398667962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a017a2a15930d240ad1958d6de5b56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  penaltyWindow: {fileID: 0}
+--- !u!114 &398667969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398667962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4804cdfd46ce2324ca8d2c8ea6443491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeAi: 1
+  targets:
+  - {fileID: 8590240252905562915}
+  - {fileID: 8590240252253849056}
+  - {fileID: 8590240251952908734}
+  - {fileID: 8590240252457384272}
+  - {fileID: 8590240252667223273}
+  - {fileID: 8590240253709556352}
+  - {fileID: 8590240253747876145}
+  - {fileID: 8590240252494075242}
+  minBorderInterval: 10
+  maxBorderInterval: 25
+  goodFace: {fileID: 0}
+  evilFace: {fileID: 0}
 --- !u!1 &812166077
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +669,7 @@ GameObject:
   - component: {fileID: 812166081}
   - component: {fileID: 812166080}
   - component: {fileID: 812166083}
+  - component: {fileID: 812166084}
   m_Layer: 8
   m_Name: Baldis
   m_TagString: Untagged
@@ -683,6 +806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4804cdfd46ce2324ca8d2c8ea6443491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  typeAi: 0
   targets:
   - {fileID: 8590240252905562915}
   - {fileID: 8590240252253849056}
@@ -696,6 +820,20 @@ MonoBehaviour:
   maxBorderInterval: 10
   goodFace: {fileID: 21300000, guid: 1b89cb3951df869429cea7a2c31ff765, type: 3}
   evilFace: {fileID: 21300000, guid: db05048bbf1e9d44a970ec9324604a4b, type: 3}
+--- !u!114 &812166084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812166077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6c201ccd3f614b489a6ef5d718ab840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lossWindow: {fileID: 0}
+  delayToRestart: 5
 --- !u!1 &823231867
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,6 +847,7 @@ GameObject:
   - component: {fileID: 823231872}
   - component: {fileID: 823231871}
   - component: {fileID: 823231870}
+  - component: {fileID: 823231873}
   m_Layer: 7
   m_Name: Rider
   m_TagString: Untagged
@@ -832,6 +971,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 23.138483, y: 25.036331, z: 0.20000039}
   m_Center: {x: -0.31920972, y: 0.76229805, z: 0.000000060324275}
+--- !u!114 &823231873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823231867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4804cdfd46ce2324ca8d2c8ea6443491, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeAi: 4
+  targets:
+  - {fileID: 8590240252905562915}
+  - {fileID: 8590240252253849056}
+  - {fileID: 8590240251952908734}
+  - {fileID: 8590240252457384272}
+  - {fileID: 8590240252667223273}
+  - {fileID: 8590240253709556352}
+  - {fileID: 8590240253747876145}
+  - {fileID: 8590240252494075242}
+  minBorderInterval: 10
+  maxBorderInterval: 25
+  goodFace: {fileID: 0}
+  evilFace: {fileID: 0}
 --- !u!1 &931450560
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class NpcController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
 
+    public TypeAI typeAi;
+
     //Patrolling
     private NavMeshAgent agent;
     int currentPointPatrolling;

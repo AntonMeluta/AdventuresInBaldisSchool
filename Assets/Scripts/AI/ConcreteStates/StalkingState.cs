@@ -23,11 +23,15 @@ public class StalkingState : NpcBaseState
 
     public override void OnCollisionEnter(NpcController npc, Collision collision)
     {
+        //Проверка столкновения с игроком
         if (collision.gameObject.GetComponent<PlayerController>())
         {
-            Debug.Log("OnCollisionEnter(NpcController npc, Collision collision)!");
-            //Переход в PlayerInteraction state NeedFix! в зависимости от типа NPC
-            npc.TransitionToState(npc.idleState);
+            //Вызов метода взаимодействия, в случае наличия такого компонента
+            if (npc.GetComponent(typeof(IInteractionPlayerAI)))
+            {
+                npc.GetComponent<IInteractionPlayerAI>().InteractionProcess();
+                npc.TransitionToState(npc.idleState);
+            }
         }
     }
 }

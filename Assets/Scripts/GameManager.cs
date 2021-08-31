@@ -20,7 +20,7 @@ public class GameManager : Singleton<GameManager>
         UpdateGameState(GameState.pregame);
     }
 
-    void UpdateGameState(GameState state)
+    public void UpdateGameState(GameState state)
     {
         GameState prevGameState = currentState;
         currentState = state;
@@ -30,6 +30,7 @@ public class GameManager : Singleton<GameManager>
             case GameState.pregame:
                 break;
             case GameState.menu:
+                //NeedFix Restart игры
                 break;
             case GameState.game:
                 break;
@@ -37,6 +38,15 @@ public class GameManager : Singleton<GameManager>
                 break;
         }
     }
+}
+
+public enum TypeAI
+{
+    Baldis,
+    Principal,
+    Bully,
+    Girl,
+    Rider
 }
 
 
