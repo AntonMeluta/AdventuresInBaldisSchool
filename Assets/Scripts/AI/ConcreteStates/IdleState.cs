@@ -8,6 +8,24 @@ public class IdleState : NpcBaseState
     {
         npc.SetExpression(npc.goodFace);
         npc.StopMoving();
+        npc.SetLayerNotCOllisionPlayer();
+
+        switch (npc.typeAi)
+        {
+            case TypeAI.Baldis:
+                break;
+            case TypeAI.Principal:
+                npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStop();
+                break;
+            case TypeAI.Bully:
+                break;
+            case TypeAI.Girl:
+                break;
+            case TypeAI.Rider:
+                break;
+            default:
+                break;
+        }
     }
 
     public override void Update(NpcController npc)

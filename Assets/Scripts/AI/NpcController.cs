@@ -9,6 +9,9 @@ public class NpcController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
 
+    public readonly string layerDefault = "AI";
+    public readonly string layerNotCollisionPlayer = "AIExtra";
+
     public TypeAI typeAi;
 
     //Patrolling
@@ -19,7 +22,7 @@ public class NpcController : MonoBehaviour
     public int maxBorderInterval = 25;
 
     //State NPC
-    private NpcBaseState currentState;
+    public NpcBaseState currentState;//свойствa
     public Sprite goodFace;
     public Sprite evilFace;
     public readonly NpcBaseState idleState = new IdleState();
@@ -36,9 +39,28 @@ public class NpcController : MonoBehaviour
     {
         playerPosition = FindObjectOfType<PlayerController>().transform;
 
-        TransitionToState(idleState);
+        switch (typeAi)
+        {
+            case TypeAI.Baldis:
+                TransitionToState(idleState);
+                break;
+            case TypeAI.Principal:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Bully:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Girl:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Rider:
+                TransitionToState(patrolState);
+                break;
+            default:
+                break;
+        }
     }
-
+    
     private void Update()
     {
         currentState.Update(this);
@@ -48,7 +70,7 @@ public class NpcController : MonoBehaviour
     {
         currentState.OnCollisionEnter(this, collision);
     }
-
+    
     public void TransitionToState(NpcBaseState state)
     {
         if (currentState == state)
@@ -63,7 +85,8 @@ public class NpcController : MonoBehaviour
     {
         spriteRenderer.sprite = sprite;
     }
-    
+
+    #region Moving working
     public void ToPointSpecial(Transform pointEvacuation)
     {
         agent.SetDestination(pointEvacuation.position);
@@ -82,25 +105,11 @@ public class NpcController : MonoBehaviour
     //Преследование игрока
     private IEnumerator StalkingPlayerEnumerator()
     {
-        //NeedFix убрать комментарии в коррутине
         while (true)
         {
             agent.destination = playerPosition.position;
             yield return null;
-        }
-        /*float dist = Vector3.Distance(transform.position, playerPosition.position);
-        float distToInteraction = 1.5f;
-
-        do
-        {            
-            agent.destination = playerPosition.position;
-            yield return null;
-
-            dist = Vector3.Distance(transform.position, playerPosition.position);
-        } while (dist > distToInteraction);*/
-
-        //Переход в PlayerInteraction state NeedFix! (ВЕРНУТЬ ЕСЛИ CollisionEnter БУДЕТ УБРАН В NPC)
-        TransitionToState(idleState);
+        }        
     }
 
     public void StartPatrolling()
@@ -121,4 +130,17 @@ public class NpcController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minBorderInterval, maxBorderInterval));
         }
     }
+    #endregion
+
+    #region Layers working
+    public void SetLayerDefault()
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerDefault);
+    }
+
+    public void SetLayerNotCOllisionPlayer()
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerNotCollisionPlayer);
+    }
+    #endregion
 }

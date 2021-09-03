@@ -8,6 +8,26 @@ public class PatrolState : NpcBaseState
     {
         npc.SetExpression(npc.goodFace);
         npc.StartPatrolling();
+
+        switch (npc.typeAi)
+        {
+            case TypeAI.Baldis:
+                break;
+            case TypeAI.Principal:
+                npc.SetLayerNotCOllisionPlayer();
+                npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStart();
+                break;
+            case TypeAI.Bully:
+                npc.SetLayerNotCOllisionPlayer();
+                break;
+            case TypeAI.Girl:
+                npc.SetLayerDefault();
+                break;
+            case TypeAI.Rider:
+                break;
+            default:
+                break;
+        }
     }
 
     public override void Update(NpcController npc)

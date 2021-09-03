@@ -17,6 +17,24 @@ public class EscapeState : NpcBaseState
         npc.SetExpression(npc.evilFace);
         Transform evacuationPoint = GameObject.Find("FirePanicExit").transform;
         npc.ToPointSpecial(evacuationPoint);
+        npc.SetLayerNotCOllisionPlayer();
+
+        switch (npc.typeAi)
+        {
+            case TypeAI.Baldis:
+                break;
+            case TypeAI.Principal:
+                npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStop();
+                break;
+            case TypeAI.Bully:
+                break;
+            case TypeAI.Girl:
+                break;
+            case TypeAI.Rider:
+                break;
+            default:
+                break;
+        }
     }
 
     public override void Update(NpcController npc)

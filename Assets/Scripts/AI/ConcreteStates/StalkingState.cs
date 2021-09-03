@@ -9,6 +9,26 @@ public class StalkingState : NpcBaseState
     {
         npc.SetExpression(npc.evilFace);
         npc.StartStalking();
+
+        switch (npc.typeAi)
+        {
+            case TypeAI.Baldis:
+                npc.SetLayerDefault();
+                break;
+            case TypeAI.Principal:
+                npc.SetLayerDefault();
+                npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStop();
+                break;
+            case TypeAI.Bully:
+                npc.SetLayerDefault();
+                break;
+            case TypeAI.Girl:
+                break;
+            case TypeAI.Rider:
+                break;
+            default:
+                break;
+        }
     }
     public override bool CanSeePlayer(NpcController npc)
     {
@@ -29,8 +49,8 @@ public class StalkingState : NpcBaseState
             //Вызов метода взаимодействия, в случае наличия такого компонента
             if (npc.GetComponent(typeof(IInteractionPlayerAI)))
             {
-                npc.GetComponent<IInteractionPlayerAI>().InteractionProcess();
                 npc.TransitionToState(npc.idleState);
+                npc.GetComponent<IInteractionPlayerAI>().InteractionProcess();                
             }
         }
     }

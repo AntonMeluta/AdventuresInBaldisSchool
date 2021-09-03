@@ -9,11 +9,7 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
     public GameObject lossWindow;
     public float delayToRestart = 5;
 
-    void OnEnable()
-    {
-
-    }
-
+   
     void Start()
     {
         npcController = GetComponent<NpcController>();
@@ -28,13 +24,8 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 
     void EndGame()
     {
+        //NeedFix рестарт игры
         GameManager.Instance.UpdateGameState(GameManager.GameState.pregame);
     }
-
-    //NeedFix не забыть подписаться! или убрать
-    void MethodForEventLossGame()
-    {
-        lossWindow.SetActive(false);
-    }
-
+    
 }

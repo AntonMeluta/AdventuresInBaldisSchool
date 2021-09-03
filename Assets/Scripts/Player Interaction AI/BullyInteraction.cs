@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
 {
-    GameObject windowToiletGame;
+    public GameObject windowToiletGame;
+    public Transform playerPos;
+    public Transform toilet;
 
-    void Start()
-    {
-        
-    }
-
+   
     public void InteractionProcess()
     {
         Transform player = GameObject.FindObjectOfType<PlayerController>().transform;
-        //NeedFix Перемещение игрока в туалет 
+        //NeedFix Перемещение игрока в туалет и последующий буллинг с трусами на голове 
+        playerPos.position = toilet.position;
         windowToiletGame.SetActive(true);
 
         NpcController npc = GetComponent<NpcController>();
