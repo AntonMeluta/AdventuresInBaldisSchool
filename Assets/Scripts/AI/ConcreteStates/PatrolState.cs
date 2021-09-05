@@ -34,12 +34,7 @@ public class PatrolState : NpcBaseState
     {
 
     }
-
-    public override bool CanSeePlayer(NpcController npc)
-    {
-        throw new System.NotImplementedException();
-    }
-
+    
     public override void OnCollisionEnter(NpcController npc, Collision collision)
     {
         //Проверка столкновения с игроком

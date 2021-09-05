@@ -44,11 +44,6 @@ public class EscapeState : NpcBaseState
             npc.TransitionToState(npc.patrolState);
     }
 
-    public override bool CanSeePlayer(NpcController npc)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public override void OnCollisionEnter(NpcController npc, Collision collision)
     {
         

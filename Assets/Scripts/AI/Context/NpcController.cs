@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class NpcController : MonoBehaviour
 {
-    
+    Vector3 startPosition;
+
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
 
@@ -33,11 +34,48 @@ public class NpcController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        startPosition = transform.position;
+    }
+
+    private void OnEnable()
+    {
+        EventsBroker.EventRestartGame += RestartPositionNpc;
+    }
+
+    private void OnDisable()
+    {
+        EventsBroker.EventRestartGame -= RestartPositionNpc;
     }
 
     private void Start()
     {
         playerPosition = FindObjectOfType<PlayerController>().transform;
+
+        switch (typeAi)
+        {
+            case TypeAI.Baldis:
+                TransitionToState(idleState);
+                break;
+            case TypeAI.Principal:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Bully:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Girl:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Rider:
+                TransitionToState(patrolState);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void RestartPositionNpc()
+    {
+        transform.position = startPosition;
 
         switch (typeAi)
         {

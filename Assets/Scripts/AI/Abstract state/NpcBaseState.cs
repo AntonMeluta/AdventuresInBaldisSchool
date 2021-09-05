@@ -7,7 +7,5 @@ public abstract class NpcBaseState
 
     public abstract void Update(NpcController npc);
 
-    public abstract bool CanSeePlayer(NpcController npc);
-
     public abstract void OnCollisionEnter(NpcController npc, Collision collision);
 }

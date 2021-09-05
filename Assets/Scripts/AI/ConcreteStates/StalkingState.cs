@@ -30,11 +30,6 @@ public class StalkingState : NpcBaseState
                 break;
         }
     }
-    public override bool CanSeePlayer(NpcController npc)
-    {
-        throw new System.NotImplementedException();
-    }
-    
     
     public override void Update(NpcController npc)
     {

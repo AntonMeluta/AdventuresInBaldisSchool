@@ -43,12 +43,7 @@ public class LessonBeginState : NpcBaseState
         if (time > durationLessons)
             npc.TransitionToState(npc.patrolState);
     }
-
-    public override bool CanSeePlayer(NpcController npc)
-    {
-        throw new System.NotImplementedException();
-    }
-
+    
     public override void OnCollisionEnter(NpcController npc, Collision collision)
     {
         

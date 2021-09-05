@@ -4,6 +4,31 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    Vector3 startPosition;
+    Quaternion startRotation;
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
+
+    private void OnEnable()
+    {
+        EventsBroker.EventRestartGame += RestartPositionPlayer;
+    }
+
+    private void OnDisable()
+    {
+        EventsBroker.EventRestartGame -= RestartPositionPlayer;
+    }
+
+    private void RestartPositionPlayer()
+    {
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

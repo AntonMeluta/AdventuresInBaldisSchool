@@ -7,13 +7,23 @@ using UnityEngine.Events;
 public class EventsBroker
 {
 
-    [System.Serializable]
-    public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> {}
+    //public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> {}
 
-
-    /*public static Action eventGameState;
-    public static void CallAchivmentsResProgressCheck()
+    #region Изменение остояния игры 
+    public delegate void UpdateStateGameDelegate(GameManager.GameState oldState, GameManager.GameState newState);
+    public static event UpdateStateGameDelegate UpdateStateGameEvent;
+    public static void StartUpdateStateGameEvent(GameManager.GameState oldState, GameManager.GameState newState)
     {
-        achievmentsResProgressCheck?.Invoke();
-    }*/
+        UpdateStateGameEvent?.Invoke(oldState, newState);
+    }
+    #endregion
+
+    #region Рестарт игры
+    public static Action EventRestartGame;
+    public static void RestartGameSend()
+    {
+        EventRestartGame?.Invoke();
+    }
+    #endregion
+
 }
