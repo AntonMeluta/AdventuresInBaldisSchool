@@ -40,11 +40,13 @@ public class NpcController : MonoBehaviour
     private void OnEnable()
     {
         EventsBroker.EventRestartGame += RestartPositionNpc;
+        EventsBroker.HuntingForPlayerStopEvent += CancelledHuntingForPlayer;
     }
 
     private void OnDisable()
     {
         EventsBroker.EventRestartGame -= RestartPositionNpc;
+        EventsBroker.HuntingForPlayerStopEvent -= CancelledHuntingForPlayer;
     }
 
     private void Start()
@@ -67,6 +69,27 @@ public class NpcController : MonoBehaviour
                 break;
             case TypeAI.Rider:
                 TransitionToState(patrolState);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void CancelledHuntingForPlayer()
+    {
+        switch (typeAi)
+        {
+            case TypeAI.Baldis:
+                break;
+            case TypeAI.Principal:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Bully:
+                TransitionToState(patrolState);
+                break;
+            case TypeAI.Girl:
+                break;
+            case TypeAI.Rider:
                 break;
             default:
                 break;

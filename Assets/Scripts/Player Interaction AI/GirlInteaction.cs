@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class GirlInteaction : MonoBehaviour
+public class GirlInteaction : MonoBehaviour, IInteractionPlayerAI
 {
     int finishedAnswersCount;
     int countAllAnswers = 3;
 
-    public GameObject windowWithQuestinos;
     public float delayToRestartMoving = 30;
     public float increaseSpeedBaldis = 1;
 
@@ -16,11 +15,13 @@ public class GirlInteaction : MonoBehaviour
     public void InteractionProcess()
     {
         finishedAnswersCount = 0;
-        windowWithQuestinos.SetActive(true);
+        EventsBroker.StopHuntingFoPlayer();
+        GameManager.Instance.UpdateGameState(GameManager.GameState.quiz);
+        Invoke("RepeatPatrolMoving", delayToRestartMoving);
     }
 
     //Игрок ошибся в ответе
-    public void FailureInteraction()
+    /*public void FailureInteraction()
     {
         FindObjectOfType<BaldisInteraction>().GetComponent<NavMeshAgent>().speed += increaseSpeedBaldis;
         finishedAnswersCount++;
@@ -31,7 +32,7 @@ public class GirlInteaction : MonoBehaviour
             baldis.TransitionToState(baldis.stalkingState);
 
             windowWithQuestinos.SetActive(false);
-            Invoke("RepeatPatrolMoving", delayToRestartMoving);
+            
         }
                 
     }
@@ -42,9 +43,7 @@ public class GirlInteaction : MonoBehaviour
         windowWithQuestinos.SetActive(false);
 
         //Игрок оттолнул девочку, её брат начинает охоту на игрока
-        NpcController bully = FindObjectOfType<BullyInteraction>().GetComponent<NpcController>();
-        bully.TransitionToState(bully.stalkingState);
-
+        
         Invoke("RepeatPatrolMoving", delayToRestartMoving);
     }
 
@@ -53,7 +52,7 @@ public class GirlInteaction : MonoBehaviour
     {
         windowWithQuestinos.SetActive(false);
         Invoke("RepeatPatrolMoving", delayToRestartMoving);
-    }
+    }*/
 
     void RepeatPatrolMoving()
     {

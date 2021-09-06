@@ -18,11 +18,19 @@ public class EventsBroker
     }
     #endregion
 
-    #region Рестарт игры
+    #region событие - Рестарт игры
     public static Action EventRestartGame;
     public static void RestartGameSend()
     {
         EventRestartGame?.Invoke();
+    }
+    #endregion
+
+    #region Игрок наказан кем-либо, прекратить охоту (за исключением учителя)
+    public static Action HuntingForPlayerStopEvent;
+    public static void StopHuntingFoPlayer()
+    {
+        HuntingForPlayerStopEvent?.Invoke();
     }
     #endregion
 

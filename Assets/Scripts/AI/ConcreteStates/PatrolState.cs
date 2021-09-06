@@ -43,8 +43,8 @@ public class PatrolState : NpcBaseState
             //Вызов метода взаимодействия, в случае наличия такого компонента
             if (npc.GetComponent(typeof(IInteractionPlayerAI)))
             {
-                npc.GetComponent<IInteractionPlayerAI>().InteractionProcess();
                 npc.TransitionToState(npc.idleState);
+                npc.GetComponent<IInteractionPlayerAI>().InteractionProcess();                
             }
         }
     }

@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     public GameObject selectModeMenu;
     public GameObject pauseMenu;
     public GameObject gameplayMenu;
+    public GameObject pantsOnHeadGame;
+    public GameObject penaltyPlayerScreen;
+    public GameObject quizScreen;
     
     private void OnEnable()
     {
@@ -28,25 +31,42 @@ public class UIManager : MonoBehaviour
                 preGameWindow.SetActive(true);
                 selectModeMenu.SetActive(false);
                 gameplayMenu.SetActive(false);
-                pauseMenu.SetActive(false);               
+                pauseMenu.SetActive(false);
+                pantsOnHeadGame.SetActive(false);
+                penaltyPlayerScreen.SetActive(false);
                 break;
             case GameManager.GameState.menu:
                 preGameWindow.SetActive(false);
                 selectModeMenu.SetActive(true);
                 gameplayMenu.SetActive(false);
                 pauseMenu.SetActive(false);
+                pantsOnHeadGame.SetActive(false);
+                penaltyPlayerScreen.SetActive(false);
+                quizScreen.SetActive(false);
                 break;            
             case GameManager.GameState.game:
-                preGameWindow.SetActive(false);
                 selectModeMenu.SetActive(false);
                 gameplayMenu.SetActive(true);
                 pauseMenu.SetActive(false);
+                pantsOnHeadGame.SetActive(false);
+                quizScreen.SetActive(false);
                 break;
             case GameManager.GameState.pause:
-                preGameWindow.SetActive(false);
-                selectModeMenu.SetActive(false);
                 gameplayMenu.SetActive(false);
                 pauseMenu.SetActive(true);
+                break;
+            case GameManager.GameState.pantsOnHeadMiniGame:
+                gameplayMenu.SetActive(false);
+                pantsOnHeadGame.SetActive(true);
+                quizScreen.SetActive(false);
+                break;
+            case GameManager.GameState.penaltyPlayer:
+                penaltyPlayerScreen.SetActive(true);
+                quizScreen.SetActive(false);
+                break;
+            case GameManager.GameState.quiz:
+                quizScreen.SetActive(true);
+                gameplayMenu.SetActive(false);
                 break;
             default:
                 break;

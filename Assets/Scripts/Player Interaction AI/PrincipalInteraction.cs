@@ -10,11 +10,12 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     TrackingSpeedPlayer trackingSpeedPlayer;
 
     public RigidbodyFirstPersonController fpsPlayer;
-    public GameObject penaltyWindow;
 
     //Towards player after penalty
     public Transform toWardsPlayer;
-    public GameObject doorLocker;
+
+    //Send delay for Time UI
+    public PenaltyPlayerScreen penaltyScreen;
 
     void Start()
     {
@@ -24,14 +25,15 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     public void InteractionProcess()
     {
         Transform player = FindObjectOfType<PlayerController>().transform;
-        fpsPlayer.transform.position = toWardsPlayer.position;
-        doorLocker.SetActive(true);
-        penaltyWindow.SetActive(true);
+        fpsPlayer.transform.position = toWardsPlayer.position;        
         trackingSpeedPlayer.UpdateStatusPenalty();
+        penaltyScreen.SetValueDelay(delayPenalty);
         Invoke("PenaltyPlayerFinished", delayPenalty);
+        GameManager.Instance.UpdateGameState(GameManager.GameState.penaltyPlayer);
 
-        NpcController npc = GetComponent<NpcController>();
-        npc.TransitionToState(npc.patrolState);
+        /*NpcController npc = GetComponent<NpcController>();
+        npc.TransitionToState(npc.patrolState);*/
+        EventsBroker.StopHuntingFoPlayer();
         GetComponent<NavMeshAgent>().destination = toWardsPlayer.position + Vector3.forward;
     }
 
@@ -39,8 +41,6 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     {
         trackingSpeedPlayer.UpdateStatusPenalty();
         delayPenalty += increaseDelayValue;
-        doorLocker.SetActive(false);
-        penaltyWindow.SetActive(false);
     }
 
 }

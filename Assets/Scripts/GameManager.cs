@@ -13,7 +13,10 @@ public class GameManager : Singleton<GameManager>
         pregame,
         menu,
         pause,
-        game
+        game,
+        pantsOnHeadMiniGame,
+        penaltyPlayer,
+        quiz
     }
 
     private void Start()
@@ -42,6 +45,15 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameState.pause:
                 Time.timeScale = 0;
+                break;
+            case GameState.pantsOnHeadMiniGame:
+                Time.timeScale = 1;
+                break;
+            case GameState.penaltyPlayer:
+                Time.timeScale = 1;
+                break;
+            case GameState.quiz:
+                Time.timeScale = 1;
                 break;
             default:
                 break;
