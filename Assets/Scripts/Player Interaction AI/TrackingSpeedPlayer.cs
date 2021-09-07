@@ -36,7 +36,7 @@ public class TrackingSpeedPlayer : MonoBehaviour
     
     IEnumerator CheckPlayerSpeed()
     {
-        float dangerSpeedBorderPlayer = 7;
+        float dangerSpeedBorderPlayer = 10;
         while (true)
         {
             yield return new WaitForSeconds(intervalToCheck);

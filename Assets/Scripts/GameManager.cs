@@ -7,7 +7,13 @@ public class GameManager : Singleton<GameManager>
 {
 
     GameState currentState = GameState.pregame;
+    GameMode gameMode;
 
+    public enum GameMode
+    {
+        standart,
+        sandbox
+    }
     public enum GameState
     {
         pregame,
@@ -16,12 +22,21 @@ public class GameManager : Singleton<GameManager>
         game,
         pantsOnHeadMiniGame,
         penaltyPlayer,
-        quiz
+        quiz,
+        loss
     }
 
     private void Start()
     {
         UpdateGameState(GameState.pregame);
+    }
+
+    public GameMode CurrentGameMode
+    {
+        get
+        {
+            return gameMode;
+        }
     }
 
     //Глобальная точка входа для работы с изменением состояния игры
@@ -55,11 +70,19 @@ public class GameManager : Singleton<GameManager>
             case GameState.quiz:
                 Time.timeScale = 1;
                 break;
+            case GameState.loss:
+                Time.timeScale = 1;
+                break;
             default:
                 break;
         }
 
         EventsBroker.StartUpdateStateGameEvent(prevGameState, currentState);
+    }
+        
+    public void UpdateGameMode(GameMode getGameMode)
+    {
+        gameMode = getGameMode;       
     }
 }
 

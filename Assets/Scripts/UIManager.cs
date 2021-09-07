@@ -12,7 +12,8 @@ public class UIManager : MonoBehaviour
     public GameObject pantsOnHeadGame;
     public GameObject penaltyPlayerScreen;
     public GameObject quizScreen;
-    
+    public GameObject lossScreen;
+
     private void OnEnable()
     {
         EventsBroker.UpdateStateGameEvent += StartGameOrPregameSetState;
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
                 pantsOnHeadGame.SetActive(false);
                 penaltyPlayerScreen.SetActive(false);
                 quizScreen.SetActive(false);
+                lossScreen.SetActive(false);
                 break;            
             case GameManager.GameState.game:
                 selectModeMenu.SetActive(false);
@@ -50,6 +52,7 @@ public class UIManager : MonoBehaviour
                 pauseMenu.SetActive(false);
                 pantsOnHeadGame.SetActive(false);
                 quizScreen.SetActive(false);
+                lossScreen.SetActive(false);
                 break;
             case GameManager.GameState.pause:
                 gameplayMenu.SetActive(false);
@@ -66,6 +69,10 @@ public class UIManager : MonoBehaviour
                 break;
             case GameManager.GameState.quiz:
                 quizScreen.SetActive(true);
+                gameplayMenu.SetActive(false);
+                break;
+            case GameManager.GameState.loss:
+                lossScreen.SetActive(true);
                 gameplayMenu.SetActive(false);
                 break;
             default:

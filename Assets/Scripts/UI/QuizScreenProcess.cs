@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class QuizScreenProcess : MonoBehaviour
 {
     NpcController npcGirl;
+    bool isGirlQuiz;
 
     int indexTask;
     int firstVariable;
@@ -28,21 +29,18 @@ public class QuizScreenProcess : MonoBehaviour
 
     private void OnEnable()
     {
-        ExtraPushButton.gameObject.SetActive(npcGirl.currentState == npcGirl.idleState);
+        isGirlQuiz = npcGirl.currentState == npcGirl.idleState;
+        ExtraPushButton.gameObject.SetActive(isGirlQuiz);
 
         indexTask = 0;        
         NewTask();
     }
-
-    private void OnDisable()
-    {
-        ClearListenerButtons();
-    }
-
+    
     //сформировать переменные, знак оператора и правильный ответ
     private void NewTask()
     {
-        
+        ClearListenerButtons();
+
         firstVariable = Random.Range(-10, 10);
         secondVariable = Random.Range(-10, 10);
 
@@ -89,13 +87,15 @@ public class QuizScreenProcess : MonoBehaviour
     private void TapCorectAnswer()
     {
         indexTask++;
-        if (indexTask < answerButtons.Length)
+        if (indexTask < answerButtons.Length - 1)
             NewTask();
         else
         {
-            print("NeedFix событие, дневник собран - итератор дневников");
             GameManager.Instance.UpdateGameState(GameManager.GameState.game);
-            gameObject.SetActive(false);            
+            gameObject.SetActive(false);
+
+            if (isGirlQuiz)
+                FindObjectOfType<NotebooksControl>().PlayerPickupNotebook();
         }            
     }
 
@@ -103,16 +103,18 @@ public class QuizScreenProcess : MonoBehaviour
     private void TapIncorectAnswer()
     {
         indexTask++;
-        if (indexTask < answerButtons.Length)
+        if (indexTask < answerButtons.Length - 1)
         {
             FindObjectOfType<BaldisSpeedHelper>().IncreaseSpeedAgent(boostSpeedValueBaldis);
             NewTask();
         }            
         else
         {
-            print("NeedFix событие, дневник собран - итератор дневников");
             GameManager.Instance.UpdateGameState(GameManager.GameState.game);
             gameObject.SetActive(false);
+
+            if (isGirlQuiz)
+                FindObjectOfType<NotebooksControl>().PlayerPickupNotebook();
         }
     }
 
@@ -131,11 +133,6 @@ public class QuizScreenProcess : MonoBehaviour
         {
             answerButtons[i].onClick.RemoveAllListeners();
             print("ClearListenerButtons() = " + i);
-        }
-            
+        }            
     }
-
-
-
-
 }

@@ -17,14 +17,16 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
     
     public void InteractionProcess()
     {
-        lossWindow.SetActive(true);
+        //NeedFix
+        //lossWindow.SetActive(true);
+        GameManager.Instance.UpdateGameState(GameManager.GameState.loss);
         Invoke("EndGame", delayToRestart);
         EventsBroker.StopHuntingFoPlayer();
-
     }
 
     void EndGame()
     {
+        //lossWindow.SetActive(false);
         GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
     }
     

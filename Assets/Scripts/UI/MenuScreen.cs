@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MenuScreen : MonoBehaviour
 {
+
     public Button standartMode;
     public Button modeSandbox;
 
@@ -16,14 +17,15 @@ public class MenuScreen : MonoBehaviour
         modeSandbox.onClick.AddListener(SandboxModeStart);
     }
 
-    //NeedFix дописать функционал режимов
     void StandartModeStart()
     {
+        GameManager.Instance.UpdateGameMode(GameManager.GameMode.standart);
         GameManager.Instance.UpdateGameState(GameManager.GameState.game);
     }
 
     void SandboxModeStart()
     {
+        GameManager.Instance.UpdateGameMode(GameManager.GameMode.sandbox);
         GameManager.Instance.UpdateGameState(GameManager.GameState.game);
     }
 }
