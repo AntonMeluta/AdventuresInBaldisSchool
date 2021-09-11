@@ -6,16 +6,16 @@ public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
 {
     public Transform playerPos;
     public Transform toilet;
-   
+
+    public GameObject pantsOnHeadScreen;
+
     public void InteractionProcess()
     {
-        Transform player = GameObject.FindObjectOfType<PlayerController>().transform;
-        GameManager.Instance.UpdateGameState(GameManager.GameState.pantsOnHeadMiniGame);
-        playerPos.position = toilet.position;
-
-        /*NpcController npc = GetComponent<NpcController>();
-        npc.TransitionToState(npc.patrolState);*/
         EventsBroker.StopHuntingFoPlayer();
+
+        Transform player = GameObject.FindObjectOfType<PlayerController>().transform;        
+        playerPos.position = toilet.position;
+        pantsOnHeadScreen.SetActive(true);
     }
 
 

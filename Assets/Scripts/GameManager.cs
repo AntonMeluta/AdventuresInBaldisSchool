@@ -20,10 +20,10 @@ public class GameManager : Singleton<GameManager>
         menu,
         pause,
         game,
-        pantsOnHeadMiniGame,
-        penaltyPlayer,
-        quiz,
-        loss
+        /*pantsOnHeadMiniGame,
+        penaltyPlayer,*/
+        //quiz
+        //loss
     }
 
     private void Start()
@@ -61,18 +61,18 @@ public class GameManager : Singleton<GameManager>
             case GameState.pause:
                 Time.timeScale = 0;
                 break;
-            case GameState.pantsOnHeadMiniGame:
+            /*case GameState.pantsOnHeadMiniGame:
                 Time.timeScale = 1;
                 break;
             case GameState.penaltyPlayer:
                 Time.timeScale = 1;
-                break;
-            case GameState.quiz:
+                break;*/
+            /*case GameState.quiz:
                 Time.timeScale = 1;
                 break;
             case GameState.loss:
                 Time.timeScale = 1;
-                break;
+                break;*/
             default:
                 break;
         }

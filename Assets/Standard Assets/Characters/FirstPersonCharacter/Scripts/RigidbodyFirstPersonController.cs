@@ -129,7 +129,7 @@ using UnityStandardAssets.CrossPlatformInput;
     private void Update()
     {
         RotateView();
-        print("SPEED PLAYER = " + movementSettings.CurrentTargetSpeed);
+        //print("SPEED PLAYER = " + movementSettings.CurrentTargetSpeed);
         if (ControlFreak2.CF2Input.GetButtonDown("Jump") && !m_Jump)
         {
             m_Jump = true;

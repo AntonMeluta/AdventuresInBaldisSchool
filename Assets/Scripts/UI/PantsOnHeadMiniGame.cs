@@ -10,6 +10,7 @@ public class PantsOnHeadMiniGame : MonoBehaviour
 
     public RectTransform left;
     public RectTransform right;
+    public RectTransform pants;
 
     float deltaLerp;
     float encreaseDelta = 0.2f;
@@ -40,6 +41,8 @@ public class PantsOnHeadMiniGame : MonoBehaviour
     {
         Vector2 leftTargetSection = new Vector2(150, 0);
         Vector2 rightTargetSection = new Vector2(-150, 0);
+        Vector2 pantsTarget = new Vector2(-10, 410);
+        Vector2 pantsStartPos = pants.anchoredPosition;
 
         while (deltaLerp > 0)
         {
@@ -50,6 +53,8 @@ public class PantsOnHeadMiniGame : MonoBehaviour
                 Vector2.Lerp(leftTargetSection, Vector2.zero, deltaLerp);
             right.anchoredPosition =
                 Vector2.Lerp(rightTargetSection, Vector2.zero, deltaLerp);
+            pants.anchoredPosition =
+                Vector2.Lerp(pantsTarget, pantsStartPos, deltaLerp);
 
             yield return null;
         }

@@ -14,8 +14,9 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     //Towards player after penalty
     public Transform toWardsPlayer;
 
-    //Send delay for Time UI
+    //Send delay for Time UI and enable
     public PenaltyPlayerScreen penaltyScreen;
+    public GameObject penaltyPlayerScreen;
 
     void Start()
     {
@@ -24,21 +25,23 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
 
     public void InteractionProcess()
     {
+        EventsBroker.StopHuntingFoPlayer();
+
         Transform player = FindObjectOfType<PlayerController>().transform;
         fpsPlayer.transform.position = toWardsPlayer.position;        
         trackingSpeedPlayer.UpdateStatusPenalty();
         penaltyScreen.SetValueDelay(delayPenalty);
         Invoke("PenaltyPlayerFinished", delayPenalty);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.penaltyPlayer);
+        penaltyPlayerScreen.SetActive(true);
 
         /*NpcController npc = GetComponent<NpcController>();
         npc.TransitionToState(npc.patrolState);*/
-        EventsBroker.StopHuntingFoPlayer();
         GetComponent<NavMeshAgent>().destination = toWardsPlayer.position + Vector3.forward;
     }
 
     void PenaltyPlayerFinished()
     {
+        penaltyPlayerScreen.SetActive(false);
         trackingSpeedPlayer.UpdateStatusPenalty();
         delayPenalty += increaseDelayValue;
     }

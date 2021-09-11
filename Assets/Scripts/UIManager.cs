@@ -32,33 +32,27 @@ public class UIManager : MonoBehaviour
                 preGameWindow.SetActive(true);
                 selectModeMenu.SetActive(false);
                 gameplayMenu.SetActive(false);
-                pauseMenu.SetActive(false);
-                pantsOnHeadGame.SetActive(false);
-                penaltyPlayerScreen.SetActive(false);
                 break;
             case GameManager.GameState.menu:
                 preGameWindow.SetActive(false);
                 selectModeMenu.SetActive(true);
                 gameplayMenu.SetActive(false);
-                pauseMenu.SetActive(false);
-                pantsOnHeadGame.SetActive(false);
                 penaltyPlayerScreen.SetActive(false);
+                pauseMenu.SetActive(false);
                 quizScreen.SetActive(false);
-                lossScreen.SetActive(false);
                 break;            
             case GameManager.GameState.game:
                 selectModeMenu.SetActive(false);
                 gameplayMenu.SetActive(true);
                 pauseMenu.SetActive(false);
                 pantsOnHeadGame.SetActive(false);
-                quizScreen.SetActive(false);
-                lossScreen.SetActive(false);
+                //quizScreen.SetActive(false);
                 break;
             case GameManager.GameState.pause:
                 gameplayMenu.SetActive(false);
                 pauseMenu.SetActive(true);
                 break;
-            case GameManager.GameState.pantsOnHeadMiniGame:
+            /*case GameManager.GameState.pantsOnHeadMiniGame:
                 gameplayMenu.SetActive(false);
                 pantsOnHeadGame.SetActive(true);
                 quizScreen.SetActive(false);
@@ -74,7 +68,7 @@ public class UIManager : MonoBehaviour
             case GameManager.GameState.loss:
                 lossScreen.SetActive(true);
                 gameplayMenu.SetActive(false);
-                break;
+                break;*/
             default:
                 break;
         }
