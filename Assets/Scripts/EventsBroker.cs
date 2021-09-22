@@ -34,4 +34,13 @@ public class EventsBroker
     }
     #endregion
 
+    #region ѕродолжить охоту, если такова€ за игроком велась
+    public static Action HuntingForPlayerRestart;
+    public static void RestartHuntingForPlayer()
+    {
+        HuntingForPlayerRestart?.Invoke();
+    }
+    #endregion
+
+
 }

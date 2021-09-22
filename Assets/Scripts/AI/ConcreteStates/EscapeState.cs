@@ -41,7 +41,7 @@ public class EscapeState : NpcBaseState
     {
         time += Time.deltaTime;
         if (time > durationLessons)
-            npc.TransitionToState(npc.patrolState);
+            npc.ReturnToPrevState();
     }
 
     public override void OnCollisionEnter(NpcController npc, Collision collision)

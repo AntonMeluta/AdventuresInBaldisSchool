@@ -60,6 +60,7 @@ public class PantsOnHeadMiniGame : MonoBehaviour
         }
 
         GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+        EventsBroker.RestartHuntingForPlayer();
     }
     
 }

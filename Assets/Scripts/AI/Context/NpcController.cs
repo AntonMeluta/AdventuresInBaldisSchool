@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class NpcController : MonoBehaviour
 {
     Vector3 startPosition;
+    Quaternion quaternion;
 
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
@@ -23,7 +24,11 @@ public class NpcController : MonoBehaviour
     public int maxBorderInterval = 25;
 
     //State NPC
+    private NpcBaseState prevState;
     public NpcBaseState currentState;//свойствa
+    public int delayTrapDamage = 10;
+    public int periodPanic = 30;
+    public int periodLesson = 30;
     public Sprite goodFace;
     public Sprite evilFace;
     public readonly NpcBaseState idleState = new IdleState();
@@ -35,6 +40,7 @@ public class NpcController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position;
+        quaternion = transform.rotation;
     }
 
     private void OnEnable()
@@ -82,10 +88,18 @@ public class NpcController : MonoBehaviour
             case TypeAI.Baldis:
                 break;
             case TypeAI.Principal:
-                TransitionToState(patrolState);
+                if (currentState == stalkingState)
+                {
+                    TransitionToState(idleState);
+                    EventsBroker.HuntingForPlayerRestart += ResumeStalkingPlayer;
+                }                
                 break;
             case TypeAI.Bully:
-                TransitionToState(patrolState);
+                if (currentState == stalkingState)
+                {
+                    TransitionToState(idleState);
+                    EventsBroker.HuntingForPlayerRestart += ResumeStalkingPlayer;
+                }
                 break;
             case TypeAI.Girl:
                 break;
@@ -98,7 +112,9 @@ public class NpcController : MonoBehaviour
 
     private void RestartPositionNpc()
     {
+        CancelInvoke();
         transform.position = startPosition;
+        transform.rotation = quaternion;
 
         switch (typeAi)
         {
@@ -138,8 +154,28 @@ public class NpcController : MonoBehaviour
             return;
 
         StopAllCoroutines();
+        prevState = currentState;
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void IceDamage()
+    {
+        TransitionToState(idleState);
+        Invoke("ReturnToPrevState", delayTrapDamage);
+    }
+
+    //Реакция на событие возобновления преследования игрока
+    private void ResumeStalkingPlayer()
+    {
+        ReturnToPrevState();
+        EventsBroker.HuntingForPlayerRestart -= ResumeStalkingPlayer;
+    }
+
+    //Вернуться к предыдущему состоянию (после паники или урока)
+    public void ReturnToPrevState()
+    {
+        TransitionToState(prevState);
     }
 
     public void SetExpression(Sprite sprite)
@@ -204,4 +240,13 @@ public class NpcController : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer(layerNotCollisionPlayer);
     }
     #endregion
+}
+
+public enum TypeAI
+{
+    Baldis,
+    Principal,
+    Bully,
+    Girl,
+    Rider
 }

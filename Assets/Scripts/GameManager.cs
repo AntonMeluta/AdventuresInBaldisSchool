@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-
     GameState currentState = GameState.pregame;
     GameMode gameMode;
 
@@ -39,6 +38,12 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    private void InitGameData()
+    {
+        StatsManager.KeyBestScore = "BestScoreSandboxMode";
+        StatsManager.LoadResult();        
+    }
+    
     //Глобальная точка входа для работы с изменением состояния игры
     public void UpdateGameState(GameState state)
     {
@@ -51,6 +56,7 @@ public class GameManager : Singleton<GameManager>
                 Time.timeScale = 0;
                 break;
             case GameState.menu:
+                InitGameData();
                 Time.timeScale = 0;
                 break;
             case GameState.game:
@@ -86,13 +92,6 @@ public class GameManager : Singleton<GameManager>
     }
 }
 
-public enum TypeAI
-{
-    Baldis,
-    Principal,
-    Bully,
-    Girl,
-    Rider
-}
+
 
 

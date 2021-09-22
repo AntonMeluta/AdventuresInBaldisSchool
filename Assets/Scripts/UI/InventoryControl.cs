@@ -12,8 +12,11 @@ public class InventoryControl : MonoBehaviour
     public Button[] buttonsSlot;
     public Image[] imagesButtonSlot;
 
+    
     private void Start()
     {
+        EventsBroker.EventRestartGame += RestartGame;
+
         indexSelectedSlot = 0;
         dictionaryItems = new Dictionary<int, IInventoryItem>();
         useButton.onClick.AddListener(UseButtonAction);
@@ -25,18 +28,31 @@ public class InventoryControl : MonoBehaviour
             dictionaryItems.Add(i, null);
         }
     }
+    
+    private void RestartGame()
+    {
+        indexSelectedSlot = 0;
+        dictionaryItems = new Dictionary<int, IInventoryItem>();
+        for (int i = 0; i < buttonsSlot.Length; i++)
+        {
+            dictionaryItems.Add(i, null);
+            imagesButtonSlot[i].sprite = null; //NEEDFIX çàìåíèòü ïèê÷ó
+        }            
+    }
 
     private void UseButtonAction()
     {
         if (dictionaryItems[indexSelectedSlot] != null)
         {
             dictionaryItems[indexSelectedSlot].UsingItem();
-            print("UseButtonAction ÏÐÅÄÌÅÒÛ ÅÑÒÜ");
-            dictionaryItems[indexSelectedSlot] = null;
-            imagesButtonSlot[indexSelectedSlot].sprite = null;
             return;
         }
-        print("UseButtonAction ÏÐÅÄÌÅÒÎÂ ÍÅÒ");
+    }
+
+    public void RemoveSelectedItem()
+    {
+        dictionaryItems[indexSelectedSlot] = null;
+        imagesButtonSlot[indexSelectedSlot].sprite = null;
     }
 
     public void AddItem(IInventoryItem pickedItem, GameObject objectInScene)
@@ -57,6 +73,5 @@ public class InventoryControl : MonoBehaviour
     {
         indexSelectedSlot = indexSlot;
     }
-
 
 }

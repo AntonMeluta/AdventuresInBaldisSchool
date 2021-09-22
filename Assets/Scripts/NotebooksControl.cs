@@ -72,6 +72,6 @@ public class NotebooksControl : MonoBehaviour
     private void UpdateScoreInSandboxMode()
     {
         notebooksPickupedText.text = countPickupedNotebooks.ToString();
-        print("Сохранение в реестр, обновление данных в случае бест скора");  //NeedFix
+        StatsManager.SaveResult(countPickupedNotebooks);
     }
 }

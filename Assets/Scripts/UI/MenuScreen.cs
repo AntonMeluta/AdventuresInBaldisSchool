@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class MenuScreen : MonoBehaviour
 {
-
+    public Text bestScoreText;
     public Button standartMode;
     public Button modeSandbox;
 
     public string moreGameRedirectRef;
+
+    private void OnEnable()
+    {
+        //NeeedFix ...
+        bestScoreText.text = StatsManager.bestScore.ToString();
+    }
 
     private void Start()
     {

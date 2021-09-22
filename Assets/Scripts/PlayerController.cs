@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = startRotation;
     }
 
+    //NeedFix убрать
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class QuizScreenProcess : MonoBehaviour
 {
-    NpcController npcGirl;
+    GirlInteaction girlInteaction;
     bool isGirlQuiz;
 
     int indexTask;
@@ -23,13 +23,13 @@ public class QuizScreenProcess : MonoBehaviour
 
     private void Awake()
     {
-        npcGirl = GameObject.FindObjectOfType<GirlInteaction>().GetComponent<NpcController>();
+        girlInteaction = FindObjectOfType<GirlInteaction>();
         ExtraPushButton.onClick.AddListener(PushGirlAction);
     }
 
     private void OnEnable()
     {
-        isGirlQuiz = npcGirl.currentState == npcGirl.idleState;
+        isGirlQuiz = girlInteaction.isInGirlQuiz;
         ExtraPushButton.gameObject.SetActive(isGirlQuiz);
 
         indexTask = 0;        
@@ -94,8 +94,12 @@ public class QuizScreenProcess : MonoBehaviour
             GameManager.Instance.UpdateGameState(GameManager.GameState.game);
             gameObject.SetActive(false);
 
-            if (isGirlQuiz)
+            if (!isGirlQuiz)
                 FindObjectOfType<NotebooksControl>().PlayerPickupNotebook();
+            else
+                girlInteaction.RepeatPatrolMoving();
+
+            EventsBroker.RestartHuntingForPlayer();
         }            
     }
 
@@ -113,17 +117,23 @@ public class QuizScreenProcess : MonoBehaviour
             GameManager.Instance.UpdateGameState(GameManager.GameState.game);
             gameObject.SetActive(false);
 
-            if (isGirlQuiz)
+            if (!isGirlQuiz)
                 FindObjectOfType<NotebooksControl>().PlayerPickupNotebook();
+            else
+                girlInteaction.RepeatPatrolMoving();
+
+            EventsBroker.RestartHuntingForPlayer();
         }
     }
 
     //Событие: оттолкнуть девочку
     private void PushGirlAction()
     {
+        EventsBroker.RestartHuntingForPlayer();
         NpcController bully = FindObjectOfType<BullyInteraction>().GetComponent<NpcController>();
         bully.TransitionToState(bully.stalkingState);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+        //GameManager.Instance.UpdateGameState(GameManager.GameState.game); //NeedFix ZACHEM ETO ZDES
+        girlInteaction.RepeatPatrolMoving();        
         gameObject.SetActive(false);
     }
 
@@ -132,7 +142,6 @@ public class QuizScreenProcess : MonoBehaviour
         for (int i = 0; i < answerButtons.Length; i++)
         {
             answerButtons[i].onClick.RemoveAllListeners();
-            print("ClearListenerButtons() = " + i);
         }            
     }
 }

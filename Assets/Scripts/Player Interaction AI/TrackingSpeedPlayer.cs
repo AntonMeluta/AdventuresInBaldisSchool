@@ -19,9 +19,9 @@ public class TrackingSpeedPlayer : MonoBehaviour
         isPenaltyPlayer = false;
     }
 
-    public void UpdateStatusPenalty()
+    public void UpdateStatusPenalty(bool valueBool)
     {
-        isPenaltyPlayer = !isPenaltyPlayer;
+        isPenaltyPlayer = valueBool;
     }
 
     public void CheckPlayerSpeedStart()

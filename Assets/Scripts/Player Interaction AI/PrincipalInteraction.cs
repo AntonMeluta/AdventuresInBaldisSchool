@@ -21,29 +21,41 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     void Start()
     {
         trackingSpeedPlayer = GetComponent<TrackingSpeedPlayer>();
+        EventsBroker.EventRestartGame += RestartGame;
+    }
+
+    private void RestartGame()
+    {
+        CancelInvoke();
+        GetComponent<TrackingSpeedPlayer>().UpdateStatusPenalty(false);
+        delayPenalty = 15;
     }
 
     public void InteractionProcess()
     {
+        NpcController npc = GetComponent<NpcController>();
+        npc.TransitionToState(npc.patrolState);
+
         EventsBroker.StopHuntingFoPlayer();
 
-        Transform player = FindObjectOfType<PlayerController>().transform;
         fpsPlayer.transform.position = toWardsPlayer.position;        
-        trackingSpeedPlayer.UpdateStatusPenalty();
+        trackingSpeedPlayer.UpdateStatusPenalty(true);
         penaltyScreen.SetValueDelay(delayPenalty);
         Invoke("PenaltyPlayerFinished", delayPenalty);
         penaltyPlayerScreen.SetActive(true);
-
-        /*NpcController npc = GetComponent<NpcController>();
-        npc.TransitionToState(npc.patrolState);*/
+        
         GetComponent<NavMeshAgent>().destination = toWardsPlayer.position + Vector3.forward;
     }
 
-    void PenaltyPlayerFinished()
+    private void PenaltyPlayerFinished()
     {
         penaltyPlayerScreen.SetActive(false);
-        trackingSpeedPlayer.UpdateStatusPenalty();
+        trackingSpeedPlayer.UpdateStatusPenalty(false);
         delayPenalty += increaseDelayValue;
+        EventsBroker.RestartHuntingForPlayer();
+
+        NpcController npc = GetComponent<NpcController>();
+        npc.TransitionToState(npc.patrolState);
     }
 
 }
