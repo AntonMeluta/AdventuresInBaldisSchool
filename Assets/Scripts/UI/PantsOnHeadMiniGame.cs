@@ -47,7 +47,7 @@ public class PantsOnHeadMiniGame : MonoBehaviour
         while (deltaLerp > 0)
         {
             if (deltaLerp < 1)
-                deltaLerp += Time.deltaTime;
+                deltaLerp += Time.deltaTime * 2;
 
             left.anchoredPosition =
                 Vector2.Lerp(leftTargetSection, Vector2.zero, deltaLerp);

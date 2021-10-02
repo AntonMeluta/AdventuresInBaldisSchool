@@ -38,10 +38,13 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    //Загрузка всех сохранённых данных из реестра
     private void InitGameData()
     {
         StatsManager.KeyBestScore = "BestScoreSandboxMode";
-        StatsManager.LoadResult();        
+        StatsManager.KeyСomplexityGame = "СomplexityGame";
+        StatsManager.LoadResult();
+        StatsManager.LoadСomplexityValue();
     }
     
     //Глобальная точка входа для работы с изменением состояния игры
@@ -53,10 +56,11 @@ public class GameManager : Singleton<GameManager>
         switch (state)
         {
             case GameState.pregame:
+                InitGameData();
                 Time.timeScale = 0;
                 break;
             case GameState.menu:
-                InitGameData();
+                AudioController.Instance.StopMusicGame();                
                 Time.timeScale = 0;
                 break;
             case GameState.game:

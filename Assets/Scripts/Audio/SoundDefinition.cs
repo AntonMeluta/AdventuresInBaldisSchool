@@ -10,9 +10,12 @@ public struct SoundDefinition
 [System.Serializable]
 public enum SoundEffect
 {
-    HeroHit,
-    LevelUp,
-    MobDamage,
-    MobDeath,
-    NextWave
+    TrapInstall,
+    CrashGlass,
+    MainTheme,
+    BellToLean,
+    AlarmFire,
+    DangerSound,
+    LossSound,
+    WinSound
 }

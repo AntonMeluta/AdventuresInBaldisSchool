@@ -29,6 +29,7 @@ public class TrapControl : MonoBehaviour
         transform.rotation = player.rotation;
         transform.position = player.position + Vector3.up + player.transform.forward;
 
+        AudioController.Instance.PlaySoundEffect(SoundEffect.TrapInstall);
         EventsBroker.EventRestartGame += ForRestartGame;
     }
 

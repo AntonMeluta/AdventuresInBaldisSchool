@@ -8,22 +8,22 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 
     public GameObject lossWindow;
     public float delayToRestart = 5;
-
    
-    void Start()
+    private void Start()
     {
         npcController = GetComponent<NpcController>();
     }
     
     public void InteractionProcess()
     {
+        AudioController.Instance.StopMusicGame();
+        AudioController.Instance.PlaySoundEffect(SoundEffect.LossSound); //NeedFix подобрать подходящий звук
         lossWindow.SetActive(true);
         EventsBroker.StopHuntingFoPlayer();
-        Invoke("EndGame", delayToRestart);
-        
+        Invoke("EndGame", delayToRestart);        
     }
 
-    void EndGame()
+    private void EndGame()
     {
         lossWindow.SetActive(false);
         GameManager.Instance.UpdateGameState(GameManager.GameState.menu);

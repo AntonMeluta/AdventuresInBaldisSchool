@@ -22,6 +22,7 @@ public class EventsBroker
     public static Action EventRestartGame;
     public static void RestartGameSend()
     {
+        HuntingForPlayerRestart = null;
         EventRestartGame?.Invoke();
     }
     #endregion

@@ -8,9 +8,14 @@ public class NotebooksControl : MonoBehaviour
     int countPickupedNotebooks = 0;
 
     public GameObject[] allNotebooksInScene;
-
     private int countNotebooksStandart;
     public Text notebooksPickupedText;
+
+    public GameObject textToWin;
+    public GameObject notebooksCounterUi;
+    public EscapePointControl pointControl;
+
+    public CameraControl cameraControl;
 
     private void Awake()
     {
@@ -43,7 +48,10 @@ public class NotebooksControl : MonoBehaviour
                 break;
             default:
                 break;
-        }       
+        }
+
+        notebooksCounterUi.SetActive(true);
+        textToWin.SetActive(false);
     }
 
     public void PlayerPickupNotebook()
@@ -65,8 +73,18 @@ public class NotebooksControl : MonoBehaviour
     private void UpdateScoreInStandartMode()
     {
         notebooksPickupedText.text = countPickupedNotebooks + "/9";
-        if (countPickupedNotebooks == countNotebooksStandart)
-            print("Открыть эвауационный выход");  //NeedFix
+        if (countPickupedNotebooks == /*countNotebooksStandart*/1) //NeedFix testing
+        {
+            textToWin.SetActive(true);
+            notebooksCounterUi.SetActive(false);
+            pointControl.EscapeActivated();
+            NpcController[] allNpc = FindObjectsOfType<NpcController>();            
+            AudioController.Instance.PlayMusic(SoundEffect.DangerSound);
+            cameraControl.DangerModeCam();
+            foreach (NpcController npc in allNpc)
+                npc.TransitionToState(npc.stalkingState);
+        }
+            
     }
 
     private void UpdateScoreInSandboxMode()

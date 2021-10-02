@@ -41,7 +41,11 @@ public class EscapeState : NpcBaseState
     {
         time += Time.deltaTime;
         if (time > durationLessons)
+        {
             npc.ReturnToPrevState();
+            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            Camera.main.GetComponent<CameraControl>().WaterDropEffect(false);
+        }            
     }
 
     public override void OnCollisionEnter(NpcController npc, Collision collision)

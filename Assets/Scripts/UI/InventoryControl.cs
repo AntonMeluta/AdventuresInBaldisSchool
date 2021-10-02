@@ -10,9 +10,10 @@ public class InventoryControl : MonoBehaviour
 
     public Button useButton;
     public Button[] buttonsSlot;
-    public Image[] imagesButtonSlot;
+    public Image[] imagesInnerSlot;
+    public Image[] imagesOuterSlot;
 
-    
+
     private void Start()
     {
         EventsBroker.EventRestartGame += RestartGame;
@@ -36,8 +37,10 @@ public class InventoryControl : MonoBehaviour
         for (int i = 0; i < buttonsSlot.Length; i++)
         {
             dictionaryItems.Add(i, null);
-            imagesButtonSlot[i].sprite = null; //NEEDFIX заменить пикчу
-        }            
+            imagesInnerSlot[i].sprite = null; 
+            imagesOuterSlot[i].color = Color.white;
+        }
+        imagesOuterSlot[0].color = Color.red;
     }
 
     private void UseButtonAction()
@@ -52,7 +55,7 @@ public class InventoryControl : MonoBehaviour
     public void RemoveSelectedItem()
     {
         dictionaryItems[indexSelectedSlot] = null;
-        imagesButtonSlot[indexSelectedSlot].sprite = null;
+        imagesInnerSlot[indexSelectedSlot].sprite = null;
     }
 
     public void AddItem(IInventoryItem pickedItem, GameObject objectInScene)
@@ -62,7 +65,7 @@ public class InventoryControl : MonoBehaviour
             if (dictionaryItems[i] == null)
             {
                 dictionaryItems[i] = pickedItem;
-                imagesButtonSlot[i].sprite = dictionaryItems[i].GetIconItem();
+                imagesInnerSlot[i].sprite = dictionaryItems[i].GetIconItem();
                 objectInScene.SetActive(false);
                 break;
             }
@@ -72,6 +75,31 @@ public class InventoryControl : MonoBehaviour
     private void SlotSelected(int indexSlot)
     {
         indexSelectedSlot = indexSlot;
+        for (int i = 0; i < imagesOuterSlot.Length; i++)
+        {
+            if (i == indexSelectedSlot)
+            {
+                imagesOuterSlot[i].color = Color.red;
+                continue;
+            }
+            imagesOuterSlot[i].color = Color.white;
+        }
     }
+
+    public bool TributeToTheBully()
+    {
+        for (int i = 0; i < dictionaryItems.Count; i++)
+        {
+            if (dictionaryItems[i] != null && dictionaryItems[i].AccessForNpc())
+            {
+                dictionaryItems[i] = null;
+                imagesInnerSlot[i].sprite = null;
+                return true;
+            }                
+        }
+
+        return false;
+    }
+
 
 }

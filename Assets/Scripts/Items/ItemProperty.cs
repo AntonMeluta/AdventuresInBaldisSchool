@@ -10,6 +10,9 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     public ItemProperty_SO itemProperty_SO;
     public InventoryControl inventoryControl;
 
+    public bool isActiveIfRestart = true;
+    public bool isAccessForNpc = false;
+
     private void Awake()
     {
         startPosition = transform.position;
@@ -20,12 +23,13 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     {
         EventsBroker.EventRestartGame += RestartGame;
     }
-    
+
     private void RestartGame()
     {
         transform.position = startPosition;
         transform.rotation = startQuaternion;
-        gameObject.SetActive(true);
+        if (isActiveIfRestart)
+            gameObject.SetActive(true);
     }
 
     public Sprite GetIconItem()
@@ -41,5 +45,10 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     public void InteractionOccurred()
     {
         inventoryControl.AddItem(this, gameObject);
+    }
+
+    public bool AccessForNpc()
+    {
+        return isAccessForNpc;
     }
 }

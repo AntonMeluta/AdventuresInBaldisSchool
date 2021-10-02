@@ -33,14 +33,15 @@ public class EvacuationButton : MonoBehaviour
 
     public void PlayerButtonPressed()
     {
-        //NeedFix срабатывает сигнализация AUDIO
-        print("СИГНАЛКА СРАБОТАЛА");
+        AudioController.Instance.PlaySoundEffect(SoundEffect.CrashGlass);
+        AudioController.Instance.PlayMusic(SoundEffect.AlarmFire);        
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
+        Camera.main.GetComponent<CameraControl>().WaterDropEffect(true);
         foreach (var npc in allNpc)        
-            npc.TransitionToState(new EscapeState(npc.periodPanic));        
+            npc.TransitionToState(new EscapeState(npc.periodPanic));
     }
 
-    void RestartGame()
+    private void RestartGame()
     {
         meshRenderer.material = glassFine;
     }

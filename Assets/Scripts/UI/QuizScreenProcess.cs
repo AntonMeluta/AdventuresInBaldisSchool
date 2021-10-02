@@ -18,6 +18,7 @@ public class QuizScreenProcess : MonoBehaviour
     public Text textQuestion;
     public Button[] answerButtons;
     public Button ExtraPushButton;
+    public Slider sliderDifficulty;
 
     public float boostSpeedValueBaldis = 1.5f;
 
@@ -41,8 +42,10 @@ public class QuizScreenProcess : MonoBehaviour
     {
         ClearListenerButtons();
 
-        firstVariable = Random.Range(-10, 10);
-        secondVariable = Random.Range(-10, 10);
+        int boderValue = StatsManager.ñomplexityGame;
+        int multiply = 10;
+        firstVariable = Random.Range(-boderValue * multiply, boderValue * multiply);
+        secondVariable = Random.Range(-boderValue * multiply, boderValue * multiply);
 
         isAdditionalOperation = 0 == Random.Range(0, 2);
         if (isAdditionalOperation)
@@ -132,7 +135,6 @@ public class QuizScreenProcess : MonoBehaviour
         EventsBroker.RestartHuntingForPlayer();
         NpcController bully = FindObjectOfType<BullyInteraction>().GetComponent<NpcController>();
         bully.TransitionToState(bully.stalkingState);
-        //GameManager.Instance.UpdateGameState(GameManager.GameState.game); //NeedFix ZACHEM ETO ZDES
         girlInteaction.RepeatPatrolMoving();        
         gameObject.SetActive(false);
     }

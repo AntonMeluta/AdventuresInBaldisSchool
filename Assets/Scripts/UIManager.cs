@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject penaltyPlayerScreen;
     public GameObject quizScreen;
     public GameObject lossScreen;
+    public GameObject winScreen;
 
     private void OnEnable()
     {
@@ -24,7 +25,7 @@ public class UIManager : MonoBehaviour
         EventsBroker.UpdateStateGameEvent -= StartGameOrPregameSetState;
     }
 
-    void StartGameOrPregameSetState(GameManager.GameState oldState, GameManager.GameState newState)
+    private void StartGameOrPregameSetState(GameManager.GameState oldState, GameManager.GameState newState)
     {
         switch (newState)
         {
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
                 gameplayMenu.SetActive(false);
                 pauseMenu.SetActive(true);
                 break;
+                //needfix! убрать
             /*case GameManager.GameState.pantsOnHeadMiniGame:
                 gameplayMenu.SetActive(false);
                 pantsOnHeadGame.SetActive(true);

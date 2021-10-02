@@ -8,6 +8,7 @@ public class MenuScreen : MonoBehaviour
     public Text bestScoreText;
     public Button standartMode;
     public Button modeSandbox;
+    public Button backButton;
 
     public string moreGameRedirectRef;
 
@@ -21,17 +22,24 @@ public class MenuScreen : MonoBehaviour
     {
         standartMode.onClick.AddListener(StandartModeStart);
         modeSandbox.onClick.AddListener(SandboxModeStart);
+        backButton.onClick.AddListener(BackButtonMenu);
     }
 
-    void StandartModeStart()
+    private void StandartModeStart()
     {
         GameManager.Instance.UpdateGameMode(GameManager.GameMode.standart);
         GameManager.Instance.UpdateGameState(GameManager.GameState.game);
     }
 
-    void SandboxModeStart()
+    private void SandboxModeStart()
     {
         GameManager.Instance.UpdateGameMode(GameManager.GameMode.sandbox);
         GameManager.Instance.UpdateGameState(GameManager.GameState.game);
     }
+
+    private void BackButtonMenu()
+    {
+        GameManager.Instance.UpdateGameState(GameManager.GameState.pregame);
+    }
+
 }

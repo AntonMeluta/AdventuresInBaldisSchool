@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LessonBeginState : NpcBaseState
 {
-    float durationLessons;
-    float time;
+    private float durationLessons;
+    private float time;
 
     public LessonBeginState(int timeLessons)
     {
@@ -41,7 +41,11 @@ public class LessonBeginState : NpcBaseState
     {
         time += Time.deltaTime;
         if (time > durationLessons)
+        {
             npc.ReturnToPrevState();
+            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+        }
+            
     }
     
     public override void OnCollisionEnter(NpcController npc, Collision collision)

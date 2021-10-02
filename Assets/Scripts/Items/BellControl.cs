@@ -33,14 +33,13 @@ public class BellControl : MonoBehaviour
 
     public void PlayerTapBell()
     {
-        //NeedFix срабатывает сигнализация AUDIO
-        print("ЗВОНОК НА УРОК ПРОЗВЕНЕЛ");
+        AudioController.Instance.PlayMusic(SoundEffect.BellToLean);
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         foreach (var npc in allNpc)
             npc.TransitionToState(new LessonBeginState(npc.periodLesson));
     }
 
-    void RestartGame()
+    private void RestartGame()
     {
         meshRenderer.material = withoutBattaries;
     }

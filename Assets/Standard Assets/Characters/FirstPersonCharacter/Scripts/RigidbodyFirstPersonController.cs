@@ -11,7 +11,9 @@ using UnityStandardAssets.CrossPlatformInput;
         [Serializable]
         public class MovementSettings
         {
-            public float ForwardSpeed = 6.0f;   // Speed when walking forward
+            public float NormalSpeed = 6.0f;   // Speed when walking forward   
+            public float RunSpeed = 12f;   // Speed when walking forward        
+            [HideInInspector] public float ForwardSpeed = 6.0f;
             public float BackwardSpeed = 3.0f;  // Speed when walking backwards
             public float StrafeSpeed = 4.0f;    // Speed when walking sideways
             public float RunMultiplier = 2.0f;   // Speed when sprinting
@@ -122,9 +124,15 @@ using UnityStandardAssets.CrossPlatformInput;
         {
             m_RigidBody = GetComponent<Rigidbody>();
             m_Capsule = GetComponent<CapsuleCollider>();
+            movementSettings.ForwardSpeed = movementSettings.NormalSpeed;
             mouseLook.Init (transform, cam.transform);
         }
 
+    public void ChangeSpeedPlayer(bool isRun)
+    {
+        movementSettings.ForwardSpeed = isRun ?  
+            movementSettings.RunSpeed : movementSettings.NormalSpeed;
+    }
 
     private void Update()
     {

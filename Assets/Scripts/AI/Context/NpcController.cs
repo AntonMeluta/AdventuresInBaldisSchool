@@ -10,6 +10,7 @@ public class NpcController : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
+    private Vector3 forLookAt;
 
     public readonly string layerDefault = "AI";
     public readonly string layerNotCollisionPlayer = "AIExtra";
@@ -92,6 +93,7 @@ public class NpcController : MonoBehaviour
                 {
                     TransitionToState(idleState);
                     EventsBroker.HuntingForPlayerRestart += ResumeStalkingPlayer;
+                    //print("Õ≈ ƒŒÀ∆ÕŒ ¬€«€¬¿“‹—ﬂ");
                 }                
                 break;
             case TypeAI.Bully:
@@ -113,8 +115,10 @@ public class NpcController : MonoBehaviour
     private void RestartPositionNpc()
     {
         CancelInvoke();
+        agent.enabled = false;
         transform.position = startPosition;
         transform.rotation = quaternion;
+        agent.enabled = true;
 
         switch (typeAi)
         {
@@ -141,6 +145,15 @@ public class NpcController : MonoBehaviour
     private void Update()
     {
         currentState.Update(this);
+        LookAtPlayer();
+    }
+
+    private void LookAtPlayer()
+    {
+        transform.LookAt(playerPosition);
+        forLookAt = transform.eulerAngles;
+        forLookAt.x = 0;
+        transform.eulerAngles = forLookAt;
     }
 
     private void OnCollisionEnter(Collision collision)
