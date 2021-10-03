@@ -2,31 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : NpcBaseState
+public class DanceState : NpcBaseState
 {
+    float durationLessons;
+    float time;
+
+    public DanceState(int timeLessons)
+    {
+        durationLessons = timeLessons;
+    }
+
     public override void EnterState(NpcController npc)
     {
         npc.SetExpression(npc.goodFace);
-        npc.StopMoving();
+        //Transform evacuationPoint = GameObject.Find("FirePanicExit").transform;
+        npc.ToPointSpecial(npc.transform);
         npc.SetLayerNotCOllisionPlayer();
 
         switch (npc.typeAi)
         {
             case TypeAI.Baldis:
-                Debug.Log("!!!!!!!! IdleState Baldis !!!!!!!!!!");
                 break;
             case TypeAI.Principal:
                 npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStop();
-                Debug.Log("!!!!!!!! IdleState Principal !!!!!!!!!!");
                 break;
             case TypeAI.Bully:
-                Debug.Log("!!!!!!!! IdleState Bully!!!!!!!!!!");
                 break;
             case TypeAI.Girl:
-                Debug.Log("!!!!!!!! IdleState Girl !!!!!!!!!!");
                 break;
             case TypeAI.Rider:
-                Debug.Log("!!!!!!!! IdleState Rider !!!!!!!!!!");
                 break;
             default:
                 break;
@@ -35,12 +39,17 @@ public class IdleState : NpcBaseState
 
     public override void Update(NpcController npc)
     {
-
+        time += Time.deltaTime;
+        if (time > durationLessons)
+        {
+            npc.ReturnToPrevState();
+            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            Camera.main.GetComponent<CameraControl>().DiscoSchool(false);
+        }
     }
-    
+
     public override void OnCollisionEnter(NpcController npc, Collision collision)
     {
 
     }
-    
 }

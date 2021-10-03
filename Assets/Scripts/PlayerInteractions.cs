@@ -27,10 +27,13 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (other.GetComponent<EscapePointControl>())
         {
+            NpcController[] allNpc = FindObjectsOfType<NpcController>();
+            foreach (NpcController npc in allNpc)
+                npc.TransitionToState(npc.idleState);
+
             AudioController.Instance.StopMusicGame();
             AudioController.Instance.PlaySoundEffect(SoundEffect.TrapInstall); //NeedFix подобрать подходящий звук
             winScreen.SetActive(true);
-            EventsBroker.StopHuntingFoPlayer();
             Invoke("EndGame", delayToRestart);
         }
     }

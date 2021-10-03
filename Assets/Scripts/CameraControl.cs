@@ -6,6 +6,7 @@ public class CameraControl : MonoBehaviour
 {
     public ParentCamEffects[] camEffects;
     public ParentCamEffects waterDrop;
+    public ParentCamEffects discoEffect;
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class CameraControl : MonoBehaviour
         foreach (ParentCamEffects effect in camEffects)
             effect.enabled = false;
         waterDrop.enabled = false;
+        discoEffect.enabled = false;
     }
 
     public void DangerModeCam()
@@ -33,5 +35,10 @@ public class CameraControl : MonoBehaviour
     public void WaterDropEffect(bool isEnabled)
     {
         waterDrop.enabled = isEnabled;
+    }
+
+    public void DiscoSchool(bool isEnabled)
+    {
+        discoEffect.enabled = isEnabled;
     }
 }

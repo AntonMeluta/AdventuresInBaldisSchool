@@ -17,5 +17,6 @@ public enum SoundEffect
     AlarmFire,
     DangerSound,
     LossSound,
-    WinSound
+    WinSound,
+    DiscoMusic
 }

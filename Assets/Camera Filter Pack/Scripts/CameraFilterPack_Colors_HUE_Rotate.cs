@@ -7,7 +7,7 @@ using System.Collections;
 
 [ExecuteInEditMode]
 [AddComponentMenu ("Camera Filter Pack/Colors/HUE_Rotate")]
-public class CameraFilterPack_Colors_HUE_Rotate : MonoBehaviour {
+public class CameraFilterPack_Colors_HUE_Rotate : ParentCamEffects {
 	#region Variables
 	public Shader SCShader;
 	private float TimeX = 1.0f;

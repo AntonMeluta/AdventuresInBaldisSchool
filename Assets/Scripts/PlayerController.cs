@@ -34,32 +34,32 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            NpcController npc = FindObjectOfType<NpcController>();
-            npc.TransitionToState(npc.patrolState);
+            NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
+            npc.TransitionToState(npc.stalkingState);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            NpcController npc = FindObjectOfType<NpcController>();
-            npc.TransitionToState(npc.stalkingState);
+            NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
+            npc.TransitionToState(npc.idleState);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            NpcController npc = FindObjectOfType<NpcController>();
+            NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
             npc.TransitionToState(new EscapeState(30));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            NpcController npc = FindObjectOfType<NpcController>();
+            NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
             npc.TransitionToState(new LessonBeginState(30));
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            NpcController npc = FindObjectOfType<NpcController>();
-            npc.TransitionToState(npc.idleState);
+            NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
+            npc.TransitionToState(npc.patrolState);
         }
     }
 }

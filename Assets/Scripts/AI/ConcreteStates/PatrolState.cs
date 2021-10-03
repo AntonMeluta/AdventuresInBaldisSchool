@@ -12,18 +12,23 @@ public class PatrolState : NpcBaseState
         switch (npc.typeAi)
         {
             case TypeAI.Baldis:
+                Debug.Log("!!!!!!!! PatrolState Baldis !!!!!!!!!!");
                 break;
             case TypeAI.Principal:
                 npc.SetLayerNotCOllisionPlayer();
                 npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStart();
+                Debug.Log("!!!!!!!! PatrolState Principal !!!!!!!!!!");
                 break;
             case TypeAI.Bully:
                 npc.SetLayerNotCOllisionPlayer();
+                Debug.Log("!!!!!!!! PatrolState Bully !!!!!!!!!!");
                 break;
             case TypeAI.Girl:
                 npc.SetLayerDefault();
+                Debug.Log("!!!!!!!! PatrolState Girl !!!!!!!!!!");
                 break;
             case TypeAI.Rider:
+                Debug.Log("!!!!!!!! PatrolState Rider !!!!!!!!!!");
                 break;
             default:
                 break;

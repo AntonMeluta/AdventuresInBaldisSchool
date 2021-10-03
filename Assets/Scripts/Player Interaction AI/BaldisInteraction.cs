@@ -19,8 +19,10 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
         AudioController.Instance.StopMusicGame();
         AudioController.Instance.PlaySoundEffect(SoundEffect.LossSound); //NeedFix подобрать подходящий звук
         lossWindow.SetActive(true);
-        EventsBroker.StopHuntingFoPlayer();
-        Invoke("EndGame", delayToRestart);        
+        Invoke("EndGame", delayToRestart);
+        NpcController[] allNpc = FindObjectsOfType<NpcController>();
+        foreach (NpcController npc in allNpc)
+            npc.TransitionToState(npc.idleState);
     }
 
     private void EndGame()

@@ -6,6 +6,7 @@ public class TrackingSpeedPlayer : MonoBehaviour
 {
     float distanceToPlayer = 0;
     NpcController npc;
+    Rigidbody playerRigidbody;
     bool isPenaltyPlayer;
 
     public float rangeCheckPlayer = 60;
@@ -16,7 +17,8 @@ public class TrackingSpeedPlayer : MonoBehaviour
     private void Start()
     {
         npc = GetComponent<NpcController>();
-        isPenaltyPlayer = false;
+        playerRigidbody = FindObjectOfType<PlayerController>().GetComponent<Rigidbody>();
+        isPenaltyPlayer = false;        
     }
 
     public void UpdateStatusPenalty(bool valueBool)
@@ -34,18 +36,19 @@ public class TrackingSpeedPlayer : MonoBehaviour
         StopAllCoroutines();
     }
     
-    IEnumerator CheckPlayerSpeed()
+    private IEnumerator CheckPlayerSpeed()
     {
-        float dangerSpeedBorderPlayer = 10;
+        float dangerSpeedBorderPlayer = 6;
         while (true)
         {
             yield return new WaitForSeconds(intervalToCheck);
 
             distanceToPlayer = Vector3.Distance(transform.position, fpsPlayer.transform.position);
             if (!isPenaltyPlayer && distanceToPlayer <= rangeCheckPlayer &&
-                fpsPlayer.movementSettings.CurrentTargetSpeed > dangerSpeedBorderPlayer)
+                playerRigidbody.velocity.magnitude > dangerSpeedBorderPlayer)
             {
                 npc.TransitionToState(npc.stalkingState);
+                print("IEnumerator CheckPlayerSpeed()");
                 break;
             }
         }

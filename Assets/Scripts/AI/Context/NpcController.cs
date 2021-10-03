@@ -29,7 +29,8 @@ public class NpcController : MonoBehaviour
     public NpcBaseState currentState;//свойствa
     public int delayTrapDamage = 10;
     public int periodPanic = 30;
-    public int periodLesson = 30;
+    public int periodLesson = 40;
+    public int periodDance = 50;
     public Sprite goodFace;
     public Sprite evilFace;
     public readonly NpcBaseState idleState = new IdleState();
@@ -93,7 +94,6 @@ public class NpcController : MonoBehaviour
                 {
                     TransitionToState(idleState);
                     EventsBroker.HuntingForPlayerRestart += ResumeStalkingPlayer;
-                    //print("НЕ ДОЛЖНО ВЫЗЫВАТЬСЯ");
                 }                
                 break;
             case TypeAI.Bully:
@@ -181,7 +181,7 @@ public class NpcController : MonoBehaviour
     //Реакция на событие возобновления преследования игрока
     private void ResumeStalkingPlayer()
     {
-        ReturnToPrevState();
+        TransitionToState(stalkingState);
         EventsBroker.HuntingForPlayerRestart -= ResumeStalkingPlayer;
     }
 

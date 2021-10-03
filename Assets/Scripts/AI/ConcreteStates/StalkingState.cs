@@ -13,18 +13,23 @@ public class StalkingState : NpcBaseState
         switch (npc.typeAi)
         {
             case TypeAI.Baldis:
+                Debug.Log("!!!!!!!! StalkingState Baldis !!!!!!!!!!");
                 npc.SetLayerDefault();
                 break;
             case TypeAI.Principal:
+                Debug.Log("!!!!!!!! StalkingState Principal !!!!!!!!!!");
                 npc.SetLayerDefault();
                 npc.GetComponent<TrackingSpeedPlayer>().CheckPlayerSpeedStop();
                 break;
             case TypeAI.Bully:
+                Debug.Log("!!!!!!!! StalkingState Bully !!!!!!!!!!");
                 npc.SetLayerDefault();
                 break;
             case TypeAI.Girl:
+                Debug.Log("!!!!!!!! StalkingState Girl !!!!!!!!!!");
                 break;
             case TypeAI.Rider:
+                Debug.Log("!!!!!!!! StalkingState Rider !!!!!!!!!!");
                 break;
             default:
                 break;
