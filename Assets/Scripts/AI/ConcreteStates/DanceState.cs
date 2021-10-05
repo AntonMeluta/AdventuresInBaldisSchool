@@ -16,7 +16,8 @@ public class DanceState : NpcBaseState
     {
         npc.SetExpression(npc.goodFace);
         //Transform evacuationPoint = GameObject.Find("FirePanicExit").transform;
-        npc.ToPointSpecial(npc.transform);
+        //npc.ToPointSpecial(npc.transform);
+        npc.DancingNpc();
         npc.SetLayerNotCOllisionPlayer();
 
         switch (npc.typeAi)
@@ -44,6 +45,7 @@ public class DanceState : NpcBaseState
         {
             npc.ReturnToPrevState();
             AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            npc.danceCicrle.SetActive(false);
             Camera.main.GetComponent<CameraControl>().DiscoSchool(false);
         }
     }

@@ -32,7 +32,7 @@ public class PlayerInteractions : MonoBehaviour
                 npc.TransitionToState(npc.idleState);
 
             AudioController.Instance.StopMusicGame();
-            AudioController.Instance.PlaySoundEffect(SoundEffect.TrapInstall); //NeedFix подобрать подходящий звук
+            AudioController.Instance.PlaySoundEffect(SoundEffect.WinSound);
             winScreen.SetActive(true);
             Invoke("EndGame", delayToRestart);
         }

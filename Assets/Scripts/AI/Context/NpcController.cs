@@ -7,6 +7,7 @@ public class NpcController : MonoBehaviour
 {
     Vector3 startPosition;
     Quaternion quaternion;
+    List<NpcBaseState> listPrevStates;
 
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
@@ -25,6 +26,8 @@ public class NpcController : MonoBehaviour
     public int maxBorderInterval = 25;
 
     //State NPC
+    public GameObject danceCicrle;
+    public Transform targetDance;
     private NpcBaseState prevState;
     public NpcBaseState currentState;//свойствa
     public int delayTrapDamage = 10;
@@ -41,6 +44,7 @@ public class NpcController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        listPrevStates = new List<NpcBaseState>();
         startPosition = transform.position;
         quaternion = transform.rotation;
     }
@@ -115,6 +119,8 @@ public class NpcController : MonoBehaviour
     private void RestartPositionNpc()
     {
         CancelInvoke();
+        listPrevStates.Clear();
+        danceCicrle.SetActive(false);
         agent.enabled = false;
         transform.position = startPosition;
         transform.rotation = quaternion;
@@ -160,14 +166,17 @@ public class NpcController : MonoBehaviour
     {
         currentState.OnCollisionEnter(this, collision);
     }
-    
+
     public void TransitionToState(NpcBaseState state)
     {
         if (currentState == state)
             return;
 
         StopAllCoroutines();
-        prevState = currentState;
+        //if (state == idleState || state == stalkingState || state == patrolState)
+        prevState = currentState  != null ? currentState : state;
+        listPrevStates.Add(prevState);
+        print(" WARNING - listPrevStates = " + listPrevStates.Count);
         currentState = state;
         currentState.EnterState(this);
     }
@@ -185,10 +194,12 @@ public class NpcController : MonoBehaviour
         EventsBroker.HuntingForPlayerRestart -= ResumeStalkingPlayer;
     }
 
-    //Вернуться к предыдущему состоянию (после паники или урока)
+    //Вернуться к предыдущему состоянию (после паники, дискотеки или урока)
     public void ReturnToPrevState()
     {
+        prevState = listPrevStates[listPrevStates.Count - 1];
         TransitionToState(prevState);
+        listPrevStates.Remove(prevState);
     }
 
     public void SetExpression(Sprite sprite)
@@ -202,6 +213,12 @@ public class NpcController : MonoBehaviour
         agent.SetDestination(pointEvacuation.position);
     }
 
+    public void DancingNpc()
+    {
+        danceCicrle.SetActive(true);
+        StartCoroutine(DancingEnumerator());
+    }
+
     public void StopMoving()
     {
         agent.SetDestination(transform.position);
@@ -210,6 +227,16 @@ public class NpcController : MonoBehaviour
     public void StartStalking()
     {
         StartCoroutine(StalkingPlayerEnumerator());
+    }
+
+    //Танец непися
+    private IEnumerator DancingEnumerator()
+    {
+        while (true)
+        {
+            agent.destination = targetDance.position;
+            yield return null;
+        }
     }
 
     //Преследование игрока
