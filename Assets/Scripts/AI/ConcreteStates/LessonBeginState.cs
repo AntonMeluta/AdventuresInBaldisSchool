@@ -45,7 +45,6 @@ public class LessonBeginState : NpcBaseState
             npc.ReturnToPrevState();
             AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
         }
-            
     }
     
     public override void OnCollisionEnter(NpcController npc, Collision collision)

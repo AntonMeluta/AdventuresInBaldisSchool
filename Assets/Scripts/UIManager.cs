@@ -53,24 +53,6 @@ public class UIManager : MonoBehaviour
                 gameplayMenu.SetActive(false);
                 pauseMenu.SetActive(true);
                 break;
-                //needfix! убрать
-            /*case GameManager.GameState.pantsOnHeadMiniGame:
-                gameplayMenu.SetActive(false);
-                pantsOnHeadGame.SetActive(true);
-                quizScreen.SetActive(false);
-                break;
-            case GameManager.GameState.penaltyPlayer:
-                penaltyPlayerScreen.SetActive(true);
-                quizScreen.SetActive(false);
-                break;
-            case GameManager.GameState.quiz:
-                quizScreen.SetActive(true);
-                gameplayMenu.SetActive(false);
-                break;
-            case GameManager.GameState.loss:
-                lossScreen.SetActive(true);
-                gameplayMenu.SetActive(false);
-                break;*/
             default:
                 break;
         }

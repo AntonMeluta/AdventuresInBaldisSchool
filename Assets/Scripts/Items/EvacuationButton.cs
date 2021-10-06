@@ -28,7 +28,7 @@ public class EvacuationButton : MonoBehaviour
     public void PlayerBrokenGlass()
     {
         meshRenderer.material = glassBroken;
-        PlayerButtonPressed(); //NeedFix делать вызов при тапе по кнопке в сцене, а не сразу
+        PlayerButtonPressed(); //NeedFix
     }
 
     public void PlayerButtonPressed()
@@ -37,8 +37,12 @@ public class EvacuationButton : MonoBehaviour
         AudioController.Instance.PlayMusic(SoundEffect.AlarmFire);        
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         Camera.main.GetComponent<CameraControl>().WaterDropEffect(true);
-        foreach (var npc in allNpc)        
+        foreach (var npc in allNpc)
+        {
+            npc.SaveCurentState();
             npc.TransitionToState(new EscapeState(npc.periodPanic));
+        }    
+            
     }
 
     private void RestartGame()

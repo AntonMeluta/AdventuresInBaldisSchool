@@ -12,6 +12,9 @@ public class TapeRecorderControl : MonoBehaviour
         cameraControl.DiscoSchool(true);
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         foreach (var npc in allNpc)
+        {
+            npc.SaveCurentState();
             npc.TransitionToState(new DanceState(npc.periodDance));
+        }            
     }
 }

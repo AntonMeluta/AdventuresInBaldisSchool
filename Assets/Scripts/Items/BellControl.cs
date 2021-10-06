@@ -28,7 +28,7 @@ public class BellControl : MonoBehaviour
     public void PlayerPutBattaries()
     {
         meshRenderer.material = withBataries;
-        PlayerTapBell(); //NeedFix делать вызов при тапе по кнопке в сцене, а не сразу
+        PlayerTapBell(); //NeedFix
     }
 
     public void PlayerTapBell()
@@ -36,7 +36,11 @@ public class BellControl : MonoBehaviour
         AudioController.Instance.PlayMusic(SoundEffect.BellToLean);
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         foreach (var npc in allNpc)
+        {
+            npc.SaveCurentState();
             npc.TransitionToState(new LessonBeginState(npc.periodLesson));
+        }
+            
     }
 
     private void RestartGame()

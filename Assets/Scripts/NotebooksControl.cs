@@ -73,7 +73,7 @@ public class NotebooksControl : MonoBehaviour
     private void UpdateScoreInStandartMode()
     {
         notebooksPickupedText.text = countPickupedNotebooks + "/9";
-        if (countPickupedNotebooks == /*countNotebooksStandart*/1) //NeedFix testing
+        if (countPickupedNotebooks == countNotebooksStandart) //NeedFix
         {
             textToWin.SetActive(true);
             notebooksCounterUi.SetActive(false);

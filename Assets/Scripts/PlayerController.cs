@@ -29,8 +29,7 @@ public class PlayerController : MonoBehaviour
         transform.rotation = startRotation;
     }
 
-    //NeedFix убрать
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -61,5 +60,5 @@ public class PlayerController : MonoBehaviour
             NpcController npc = FindObjectOfType<PrincipalInteraction>().GetComponent<NpcController>();
             npc.TransitionToState(npc.patrolState);
         }
-    }
+    }*/
 }

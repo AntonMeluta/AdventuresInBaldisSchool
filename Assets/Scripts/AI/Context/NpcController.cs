@@ -6,8 +6,7 @@ using UnityEngine.AI;
 public class NpcController : MonoBehaviour
 {
     Vector3 startPosition;
-    Quaternion quaternion;
-    List<NpcBaseState> listPrevStates;
+    Quaternion quaternion;    
 
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
@@ -28,6 +27,7 @@ public class NpcController : MonoBehaviour
     //State NPC
     public GameObject danceCicrle;
     public Transform targetDance;
+    List<NpcBaseState> listPrevStates;
     private NpcBaseState prevState;
     public NpcBaseState currentState;//свойствa
     public int delayTrapDamage = 10;
@@ -45,6 +45,7 @@ public class NpcController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         listPrevStates = new List<NpcBaseState>();
+        prevState = null;
         startPosition = transform.position;
         quaternion = transform.rotation;
     }
@@ -120,6 +121,7 @@ public class NpcController : MonoBehaviour
     {
         CancelInvoke();
         listPrevStates.Clear();
+        prevState = null;
         danceCicrle.SetActive(false);
         agent.enabled = false;
         transform.position = startPosition;
@@ -146,6 +148,7 @@ public class NpcController : MonoBehaviour
             default:
                 break;
         }
+        
     }
     
     private void Update()
@@ -173,16 +176,13 @@ public class NpcController : MonoBehaviour
             return;
 
         StopAllCoroutines();
-        //if (state == idleState || state == stalkingState || state == patrolState)
-        prevState = currentState  != null ? currentState : state;
-        listPrevStates.Add(prevState);
-        print(" WARNING - listPrevStates = " + listPrevStates.Count);
         currentState = state;
         currentState.EnterState(this);
     }
-
+    
     public void IceDamage()
     {
+        SaveCurentState();
         TransitionToState(idleState);
         Invoke("ReturnToPrevState", delayTrapDamage);
     }
@@ -194,7 +194,20 @@ public class NpcController : MonoBehaviour
         EventsBroker.HuntingForPlayerRestart -= ResumeStalkingPlayer;
     }
 
-    //Вернуться к предыдущему состоянию (после паники, дискотеки или урока)
+    private void FixedUpdate()
+    {
+        if (prevState != null)
+            print("PREV STATE = " + prevState.ToString());
+    }
+
+    //Сохранить состояние для возвращения к нему (по необходимости)
+    public void SaveCurentState()
+    {
+            prevState = currentState;
+            listPrevStates.Add(prevState);
+    }
+
+    //Вернуться к предыдущему состоянию (после заморзки, файр паники, дискотеки или урока)
     public void ReturnToPrevState()
     {
         prevState = listPrevStates[listPrevStates.Count - 1];
