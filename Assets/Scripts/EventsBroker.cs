@@ -6,9 +6,7 @@ using UnityEngine.Events;
 
 public class EventsBroker
 {
-
     //public class EventGameState : UnityEvent<GameManager.GameState, GameManager.GameState> {}
-
     #region Изменение остояния игры 
     public delegate void UpdateStateGameDelegate(GameManager.GameState oldState, GameManager.GameState newState);
     public static event UpdateStateGameDelegate UpdateStateGameEvent;

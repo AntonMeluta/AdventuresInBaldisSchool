@@ -14,7 +14,7 @@ public class TapeRecorderControl : MonoBehaviour
         foreach (var npc in allNpc)
         {
             npc.SaveCurentState();
-            npc.TransitionToState(new DanceState(npc.periodDance));
+            npc.TransitionToState(new DanceState(npc.PeriodDance));
         }            
     }
 }

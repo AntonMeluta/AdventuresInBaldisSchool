@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
 {
-    int delayPenalty = 15;
-    int increaseDelayValue = 15;
-    TrackingSpeedPlayer trackingSpeedPlayer;
+    private int delayPenalty = 15;
+    private int increaseDelayValue = 15;
+    private TrackingSpeedPlayer trackingSpeedPlayer;
 
     public RigidbodyFirstPersonController fpsPlayer;
 
@@ -15,10 +15,9 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     public Transform toWardsPlayer;
 
     //Send delay for Time UI and enable
-    public PenaltyPlayerScreen penaltyScreen;
-    public GameObject penaltyPlayerScreen;
+    public GameObject doorLocker;
 
-    void Start()
+    private void Start()
     {
         trackingSpeedPlayer = GetComponent<TrackingSpeedPlayer>();
         EventsBroker.EventRestartGame += RestartGame;
@@ -27,6 +26,7 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     private void RestartGame()
     {
         CancelInvoke();
+        doorLocker.SetActive(false);
         GetComponent<TrackingSpeedPlayer>().UpdateStatusPenalty(false);
         delayPenalty = 15;
     }
@@ -40,16 +40,19 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
 
         fpsPlayer.transform.position = toWardsPlayer.position;        
         trackingSpeedPlayer.UpdateStatusPenalty(true);
-        penaltyScreen.SetValueDelay(delayPenalty);
+        UIManager.Instance.penaltyPlayerScreen.
+            GetComponent<PenaltyPlayerScreen>().SetValueDelay(delayPenalty);
         Invoke("PenaltyPlayerFinished", delayPenalty);
-        penaltyPlayerScreen.SetActive(true);
-        
+        UIManager.Instance.penaltyPlayerScreen.SetActive(true);
+        doorLocker.SetActive(true);
+
         GetComponent<NavMeshAgent>().destination = toWardsPlayer.position + Vector3.forward;
     }
 
     private void PenaltyPlayerFinished()
     {
-        penaltyPlayerScreen.SetActive(false);
+        doorLocker.SetActive(false);
+        UIManager.Instance.penaltyPlayerScreen.SetActive(false);
         trackingSpeedPlayer.UpdateStatusPenalty(false);
         delayPenalty += increaseDelayValue;
         EventsBroker.RestartHuntingForPlayer();

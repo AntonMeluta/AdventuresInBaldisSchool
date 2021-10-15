@@ -10,8 +10,6 @@ public class PlayerInteractions : MonoBehaviour
     public InventoryControl inventoryControl;
     public LayerMask needLayerCast;
 
-    public GameObject winScreen;
-
     private void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -33,14 +31,14 @@ public class PlayerInteractions : MonoBehaviour
 
             AudioController.Instance.StopMusicGame();
             AudioController.Instance.PlaySoundEffect(SoundEffect.WinSound);
-            winScreen.SetActive(true);
+            UIManager.Instance.winScreen.SetActive(true);
             Invoke("EndGame", delayToRestart);
         }
     }
 
     private void EndGame()
     {
-        winScreen.SetActive(false);
+        UIManager.Instance.winScreen.SetActive(false);
         GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
     }
 }

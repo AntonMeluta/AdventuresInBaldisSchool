@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameplayScreen : MonoBehaviour
 {
     private bool isIconRun;
+    private RigidbodyFirstPersonController personController;
 
     public Button pauseButton;
     public Button toMenuButton;
@@ -13,10 +14,10 @@ public class GameplayScreen : MonoBehaviour
     public Image runButtonImage;
     public Sprite walkIcon;
     public Sprite runIcon;
-    public RigidbodyFirstPersonController personController;
 
     private void Start()
     {
+        personController = FindObjectOfType<RigidbodyFirstPersonController>();
         pauseButton.onClick.AddListener(PauseButtonAction);
         toMenuButton.onClick.AddListener(ToMenuButtonAction);
         runButton.onClick.AddListener(TapRunButton);        

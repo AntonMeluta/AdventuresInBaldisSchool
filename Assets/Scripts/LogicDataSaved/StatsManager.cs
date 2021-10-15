@@ -4,11 +4,27 @@ using UnityEngine;
 
 public static class StatsManager
 {
-    public static string KeyBestScore;
-    public static string Key—omplexityGame;
+    private static string KeyBestScore = "BestScoreSandboxMode";
+    private static string Key—omplexityGame = "—omplexityGame";
 
-    public static int bestScore;
-    public static int ÒomplexityGame;
+    private static int bestScore;
+    private static int ÒomplexityGame;
+
+    public static int BestScore
+    {
+        get
+        {
+            return bestScore;
+        }
+    }
+
+    public static int ComplexityGame
+    {
+        get
+        {
+            return ÒomplexityGame;
+        }
+    }
 
     public static void SaveResult(int currentScore)
     {
@@ -17,7 +33,7 @@ public static class StatsManager
             bestScore = currentScore;
             PlayerPrefs.SetInt(KeyBestScore, bestScore);
         }
-    }    
+    }
 
     public static void LoadResult()
     {

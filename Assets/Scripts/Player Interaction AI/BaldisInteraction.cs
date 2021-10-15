@@ -6,8 +6,7 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 {
     NpcController npcController;
 
-    public GameObject lossWindow;
-    public float delayToRestart = 5;
+    [SerializeField]float delayToRestart = 5;
    
     private void Start()
     {
@@ -18,7 +17,7 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
     {
         AudioController.Instance.StopMusicGame();
         AudioController.Instance.PlaySoundEffect(SoundEffect.LossSound);
-        lossWindow.SetActive(true);
+        UIManager.Instance.lossScreen.SetActive(true);
         Invoke("EndGame", delayToRestart);
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         foreach (NpcController npc in allNpc)
@@ -27,7 +26,7 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 
     private void EndGame()
     {
-        lossWindow.SetActive(false);
+        UIManager.Instance.lossScreen.SetActive(false);
         GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
     }
     

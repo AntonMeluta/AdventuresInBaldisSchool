@@ -8,7 +8,7 @@ public class BellAction : MonoBehaviour, IItemUsing
     public Transform bellTransform;
     public BellControl bellInScene;
 
-    public float range = 3f;
+    [SerializeField]float range = 3f;
 
     public void ItemUsedUp()
     {

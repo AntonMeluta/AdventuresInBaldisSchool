@@ -8,7 +8,7 @@ public class CoinAction : MonoBehaviour, IItemUsing
     public Transform automatPos;
     public GameObject energieBar;
 
-    public float range = 1.5f;
+    [SerializeField]float range = 1.5f;
 
     public void ItemUsedUp()
     {

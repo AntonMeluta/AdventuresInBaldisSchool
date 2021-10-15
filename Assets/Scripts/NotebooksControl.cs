@@ -9,10 +9,7 @@ public class NotebooksControl : MonoBehaviour
 
     public GameObject[] allNotebooksInScene;
     private int countNotebooksStandart;
-    public Text notebooksPickupedText;
-
-    public GameObject textToWin;
-    public GameObject notebooksCounterUi;
+    
     public EscapePointControl pointControl;
 
     public CameraControl cameraControl;
@@ -41,22 +38,25 @@ public class NotebooksControl : MonoBehaviour
         switch (GameManager.Instance.CurrentGameMode)
         {
             case GameManager.GameMode.standart:
-                notebooksPickupedText.text = countPickupedNotebooks + "/" + countNotebooksStandart;
+                UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text = 
+                    countPickupedNotebooks + "/" + countNotebooksStandart;
                 break;
             case GameManager.GameMode.sandbox:
-                notebooksPickupedText.text = countPickupedNotebooks.ToString();
+                UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+                    countPickupedNotebooks.ToString();
                 break;
             default:
                 break;
         }
 
-        notebooksCounterUi.SetActive(true);
-        textToWin.SetActive(false);
+        UIManager.Instance.notebooksCounter.SetActive(true);
+        UIManager.Instance.textToWin.SetActive(false);
     }
 
     public void PlayerPickupNotebook()
     {
         countPickupedNotebooks++;
+
         switch (GameManager.Instance.CurrentGameMode)
         {
             case GameManager.GameMode.standart:
@@ -72,11 +72,13 @@ public class NotebooksControl : MonoBehaviour
 
     private void UpdateScoreInStandartMode()
     {
-        notebooksPickupedText.text = countPickupedNotebooks + "/9";
-        if (countPickupedNotebooks == countNotebooksStandart) //NeedFix
+        UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+            countPickupedNotebooks + "/" + countNotebooksStandart;
+
+        if (countPickupedNotebooks == /*countNotebooksStandart*/ 1)
         {
-            textToWin.SetActive(true);
-            notebooksCounterUi.SetActive(false);
+            UIManager.Instance.textToWin.SetActive(true);
+            UIManager.Instance.notebooksCounter.SetActive(false);
             pointControl.EscapeActivated();
             NpcController[] allNpc = FindObjectsOfType<NpcController>();            
             AudioController.Instance.PlayMusic(SoundEffect.DangerSound);
@@ -89,7 +91,9 @@ public class NotebooksControl : MonoBehaviour
 
     private void UpdateScoreInSandboxMode()
     {
-        notebooksPickupedText.text = countPickupedNotebooks.ToString();
+        UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+            countPickupedNotebooks.ToString();
+
         StatsManager.SaveResult(countPickupedNotebooks);
     }
 }

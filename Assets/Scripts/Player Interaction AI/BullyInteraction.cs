@@ -8,9 +8,6 @@ public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
 
     public Transform playerPos;
     public Transform toilet;
-    public InventoryControl inventoryControl;
-
-    public GameObject pantsOnHeadScreen;
 
     private void Start()
     {
@@ -20,7 +17,8 @@ public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
     public void InteractionProcess()
     {
         //Если у игрока есть шоколадка, монета или ключи, которые хулиган может отобрать
-        if (inventoryControl.TributeToTheBully())
+        if (UIManager.Instance.inventary.
+                GetComponent<InventoryControl>().TributeToTheBully())
         {
             npc.TransitionToState(npc.patrolState);
         }
@@ -30,7 +28,7 @@ public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
             EventsBroker.StopHuntingFoPlayer();
             Transform player = FindObjectOfType<PlayerController>().transform;
             playerPos.position = toilet.position;
-            pantsOnHeadScreen.SetActive(true);
+            UIManager.Instance.pantsOnHeadGame.SetActive(true);
             npc.TransitionToState(npc.patrolState);
         }
     }

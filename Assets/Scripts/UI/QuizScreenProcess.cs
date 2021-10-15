@@ -5,22 +5,22 @@ using UnityEngine.UI;
 
 public class QuizScreenProcess : MonoBehaviour
 {
-    GirlInteaction girlInteaction;
-    bool isGirlQuiz;
+    private GirlInteaction girlInteaction;
+    private bool isGirlQuiz;
 
-    int indexTask;
-    int firstVariable;
-    int secondVariable;
-    int correctAnswer;
-    int indexCorrectAnswer;
-    bool isAdditionalOperation;
+    private int indexTask;
+    private int firstVariable;
+    private int secondVariable;
+    private int correctAnswer;
+    private int indexCorrectAnswer;
+    private bool isAdditionalOperation;
 
     public Text textQuestion;
     public Button[] answerButtons;
     public Button ExtraPushButton;
     public Slider sliderDifficulty;
 
-    public float boostSpeedValueBaldis = 1.5f;
+    [SerializeField]float boostSpeedValueBaldis = 1.5f;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class QuizScreenProcess : MonoBehaviour
 
     private void OnEnable()
     {
-        isGirlQuiz = girlInteaction.isInGirlQuiz;
+        isGirlQuiz = girlInteaction.IsInGirlQuiz;
         ExtraPushButton.gameObject.SetActive(isGirlQuiz);
 
         indexTask = 0;        
@@ -42,7 +42,7 @@ public class QuizScreenProcess : MonoBehaviour
     {
         ClearListenerButtons();
 
-        int boderValue = StatsManager.ñomplexityGame;
+        int boderValue = StatsManager.ComplexityGame;
         int multiply = 10;
         firstVariable = Random.Range(-boderValue * multiply, boderValue * multiply);
         secondVariable = Random.Range(-boderValue * multiply, boderValue * multiply);

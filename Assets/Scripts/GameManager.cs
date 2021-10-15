@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    public GameObject[] controllersPrefabs;
+
     GameState currentState = GameState.pregame;
     GameMode gameMode;
 
@@ -19,14 +21,14 @@ public class GameManager : Singleton<GameManager>
         menu,
         pause,
         game,
-        /*pantsOnHeadMiniGame,
-        penaltyPlayer,*/
-        //quiz
-        //loss
     }
 
     private void Start()
     {
+        foreach (GameObject controller in controllersPrefabs)
+        {
+            Instantiate(controller);
+        }         
         UpdateGameState(GameState.pregame);
     }
 
@@ -41,8 +43,6 @@ public class GameManager : Singleton<GameManager>
     //Çàãğóçêà âñåõ ñîõğàí¸ííûõ äàííûõ èç ğååñòğà
     private void InitGameData()
     {
-        StatsManager.KeyBestScore = "BestScoreSandboxMode";
-        StatsManager.KeyÑomplexityGame = "ÑomplexityGame";
         StatsManager.LoadResult();
         StatsManager.LoadÑomplexityValue();
     }
@@ -71,18 +71,6 @@ public class GameManager : Singleton<GameManager>
             case GameState.pause:
                 Time.timeScale = 0;
                 break;
-            /*case GameState.pantsOnHeadMiniGame:
-                Time.timeScale = 1;
-                break;
-            case GameState.penaltyPlayer:
-                Time.timeScale = 1;
-                break;*/
-            /*case GameState.quiz:
-                Time.timeScale = 1;
-                break;
-            case GameState.loss:
-                Time.timeScale = 1;
-                break;*/
             default:
                 break;
         }

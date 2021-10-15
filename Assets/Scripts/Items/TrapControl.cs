@@ -49,7 +49,7 @@ public class TrapControl : MonoBehaviour
             boxCollider.enabled = false;
             rb.isKinematic = true;
 
-            Invoke("ForRestartGame", npc.delayTrapDamage);
+            Invoke("ForRestartGame", npc.DelayTrapDamage);
         }
     }
 

@@ -38,7 +38,7 @@ public class BellControl : MonoBehaviour
         foreach (var npc in allNpc)
         {
             npc.SaveCurentState();
-            npc.TransitionToState(new LessonBeginState(npc.periodLesson));
+            npc.TransitionToState(new LessonBeginState(npc.PeriodLesson));
         }
             
     }

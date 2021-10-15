@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     public GameObject preGameWindow;
     public GameObject selectModeMenu;
     public GameObject pauseMenu;
     public GameObject gameplayMenu;
+    public GameObject inventary;
+    public GameObject notebooksCounter;
+    public GameObject textToWin;
     public GameObject pantsOnHeadGame;
     public GameObject penaltyPlayerScreen;
     public GameObject quizScreen;
@@ -47,7 +49,6 @@ public class UIManager : MonoBehaviour
                 gameplayMenu.SetActive(true);
                 pauseMenu.SetActive(false);
                 pantsOnHeadGame.SetActive(false);
-                //quizScreen.SetActive(false);
                 break;
             case GameManager.GameState.pause:
                 gameplayMenu.SetActive(false);

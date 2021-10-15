@@ -9,10 +9,10 @@ public class TrackingSpeedPlayer : MonoBehaviour
     Rigidbody playerRigidbody;
     bool isPenaltyPlayer;
 
-    public float rangeCheckPlayer = 60;
+    [SerializeField]float rangeCheckPlayer = 60;
 
     public RigidbodyFirstPersonController fpsPlayer;
-    public float intervalToCheck = 0.2f;
+    [SerializeField] float intervalToCheck = 0.2f;
 
     private void Start()
     {

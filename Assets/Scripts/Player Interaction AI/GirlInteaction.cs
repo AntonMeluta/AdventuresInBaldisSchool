@@ -7,11 +7,9 @@ public class GirlInteaction : MonoBehaviour, IInteractionPlayerAI
 {
     private float delayToReturnPatol = 10;
 
-    public float increaseSpeedBaldis = 1;
-
-    public GameObject quizScreen;
-    public bool isInGirlQuiz = false;
-
+    [SerializeField]float increaseSpeedBaldis = 1;
+    [SerializeField]bool isInGirlQuiz = false;
+    
     private void OnEnable()
     {
         EventsBroker.EventRestartGame += RestartGame;
@@ -28,11 +26,19 @@ public class GirlInteaction : MonoBehaviour, IInteractionPlayerAI
         isInGirlQuiz = false;
     }
 
+    public bool IsInGirlQuiz
+    {
+        get
+        {
+            return isInGirlQuiz;
+        }
+    }
+
     public void InteractionProcess()
     {
         EventsBroker.StopHuntingFoPlayer();
         isInGirlQuiz = true;
-        quizScreen.SetActive(true);
+        UIManager.Instance.quizScreen.SetActive(true);
     }
     
     public void RepeatPatrolMoving()

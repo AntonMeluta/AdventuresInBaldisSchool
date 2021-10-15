@@ -8,10 +8,9 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     Quaternion startQuaternion;
 
     public ItemProperty_SO itemProperty_SO;
-    public InventoryControl inventoryControl;
 
-    public bool isActiveIfRestart = true;
-    public bool isAccessForNpc = false;
+    [SerializeField]bool isActiveIfRestart = true;
+    [SerializeField]bool isAccessForNpc = false;
 
     private void Awake()
     {
@@ -44,7 +43,8 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     
     public void InteractionOccurred()
     {
-        inventoryControl.AddItem(this, gameObject);
+        UIManager.Instance.inventary.GetComponent<InventoryControl>().
+            AddItem(this, gameObject);
     }
 
     public bool AccessForNpc()

@@ -40,7 +40,7 @@ public class EvacuationButton : MonoBehaviour
         foreach (var npc in allNpc)
         {
             npc.SaveCurentState();
-            npc.TransitionToState(new EscapeState(npc.periodPanic));
+            npc.TransitionToState(new EscapeState(npc.PeriodPanic));
         }    
             
     }

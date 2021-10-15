@@ -8,7 +8,7 @@ public class TapeRecorderAction : MonoBehaviour, IItemUsing
     public Transform tapeRecorderPos;
     public TapeRecorderControl tapeRecorder;
 
-    public float range = 3f;
+    [SerializeField]float range = 3f;
 
     public void ItemUsedUp()
     {

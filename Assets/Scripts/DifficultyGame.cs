@@ -15,7 +15,7 @@ public class DifficultyGame : MonoBehaviour
 
     private void OnEnable()
     {
-        slider.value = StatsManager.ñomplexityGame;
+        slider.value = StatsManager.ComplexityGame;
     }
 
     private void UpdateValueDifficulty(float valueNew)

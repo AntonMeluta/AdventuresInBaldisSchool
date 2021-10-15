@@ -9,7 +9,7 @@ public class IceSceneMoving : MonoBehaviour
 
     public Transform player;
     public Transform targetVelocity;
-    public float speedMoving = 160;
+    [SerializeField]float speedMoving = 160;
 
     private void Awake()
     {

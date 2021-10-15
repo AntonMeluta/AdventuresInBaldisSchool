@@ -8,7 +8,7 @@ public class PregameSceen : MonoBehaviour
     public Button startGame;
     public Button moreGames;
 
-    public string moreGameRedirectRef;
+    [SerializeField]string moreGameRedirectRef;
 
     private void Start()
     {
@@ -16,12 +16,12 @@ public class PregameSceen : MonoBehaviour
         moreGames.onClick.AddListener(MoreGamesAction);
     }
 
-    void StartGameAction()
+    private void StartGameAction()
     {
         GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
     }
 
-    void MoreGamesAction()
+    private void MoreGamesAction()
     {
         Application.OpenURL(moreGameRedirectRef);
     }

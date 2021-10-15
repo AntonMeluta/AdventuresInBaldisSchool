@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class NpcController : MonoBehaviour
 {
-    Vector3 startPosition;
-    Quaternion quaternion;    
+    private Vector3 startPosition;
+    private Quaternion quaternion;    
 
     private SpriteRenderer spriteRenderer;
     private Transform playerPosition;
@@ -19,21 +19,21 @@ public class NpcController : MonoBehaviour
 
     //Patrolling
     private NavMeshAgent agent;
-    int currentPointPatrolling;
+    private int currentPointPatrolling;
     public Transform[] targets;
-    public int minBorderInterval = 10;
-    public int maxBorderInterval = 25;
+    [SerializeField]private int minBorderInterval = 10;
+    [SerializeField]private int maxBorderInterval = 25;
 
     //State NPC
     public GameObject danceCicrle;
     public Transform targetDance;
-    List<NpcBaseState> listPrevStates;
+    private List<NpcBaseState> listPrevStates;
     private NpcBaseState prevState;
     public NpcBaseState currentState;//свойствa
-    public int delayTrapDamage = 10;
-    public int periodPanic = 30;
-    public int periodLesson = 40;
-    public int periodDance = 50;
+    [SerializeField]private int delayTrapDamage = 10;
+    [SerializeField]private int periodPanic = 30;
+    [SerializeField]private int periodLesson = 40;
+    [SerializeField]private int periodDance = 50;
     public Sprite goodFace;
     public Sprite evilFace;
     public readonly NpcBaseState idleState = new IdleState();
@@ -87,6 +87,37 @@ public class NpcController : MonoBehaviour
                 break;
         }
     }
+
+    #region properties  
+    public int DelayTrapDamage
+    {
+        get
+        {
+            return delayTrapDamage;
+        }
+    }
+    public int PeriodPanic
+    {
+        get
+        {
+            return periodPanic;
+        }
+    }
+    public int PeriodLesson
+    {
+        get
+        {
+            return periodLesson;
+        }
+    }
+    public int PeriodDance
+    {
+        get
+        {
+            return periodDance;
+        }
+    }
+    #endregion
 
     private void CancelledHuntingForPlayer()
     {
@@ -147,14 +178,7 @@ public class NpcController : MonoBehaviour
                 break;
             default:
                 break;
-        }
-        
-    }
-    
-    private void Update()
-    {
-        currentState.Update(this);
-        LookAtPlayer();
+        }        
     }
 
     private void LookAtPlayer()
@@ -163,6 +187,12 @@ public class NpcController : MonoBehaviour
         forLookAt = transform.eulerAngles;
         forLookAt.x = 0;
         transform.eulerAngles = forLookAt;
+    }
+
+    private void Update()
+    {
+        currentState.Update(this);
+        LookAtPlayer();
     }
 
     private void OnCollisionEnter(Collision collision)

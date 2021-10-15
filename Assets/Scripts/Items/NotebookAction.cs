@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NotebookAction : MonoBehaviour, IItemUsing, IInteractiveWithPlayer
 {
-    public GameObject quizScreen;
 
     private void Start()
     {
@@ -24,7 +23,7 @@ public class NotebookAction : MonoBehaviour, IItemUsing, IInteractiveWithPlayer
     public void ItemUsedUp()
     {
         EventsBroker.StopHuntingFoPlayer();
-        quizScreen.SetActive(true);
+        UIManager.Instance.quizScreen.SetActive(true);
         gameObject.SetActive(false);
     }
 }

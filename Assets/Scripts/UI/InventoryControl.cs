@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class InventoryControl : MonoBehaviour
 {
-    int indexSelectedSlot;
-    Dictionary<int, IInventoryItem> dictionaryItems;
+    private int indexSelectedSlot;
+    private Dictionary<int, IInventoryItem> dictionaryItems;
 
     public Button useButton;
     public Button[] buttonsSlot;

@@ -5,20 +5,17 @@ using UnityEngine.UI;
 
 public class PenaltyPlayerScreen : MonoBehaviour
 {
-    int delayPenalty;
-
-    public GameObject doorLocker;
+    private int delayPenalty;
+    
     public Text timeTextPenalty;
 
     private void OnEnable()
     {
-        doorLocker.SetActive(true);
         StartCoroutine(TimingPenalty());
     }
 
     private void OnDisable()
     {
-        doorLocker.SetActive(false);
         StopAllCoroutines();
     }
 
@@ -27,7 +24,7 @@ public class PenaltyPlayerScreen : MonoBehaviour
         delayPenalty = delay;
     }
 
-    IEnumerator TimingPenalty()
+    private IEnumerator TimingPenalty()
     {
         timeTextPenalty.text = delayPenalty.ToString();
 

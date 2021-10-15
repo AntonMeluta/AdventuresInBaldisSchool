@@ -120,14 +120,15 @@ using UnityStandardAssets.CrossPlatformInput;
         }
 
 
-        private void Start()
-        {
-            m_RigidBody = GetComponent<Rigidbody>();
-            m_Capsule = GetComponent<CapsuleCollider>();
-            movementSettings.ForwardSpeed = movementSettings.NormalSpeed;
-            mouseLook.Init (transform, cam.transform);
-        }
-
+    private void Start()
+    {
+        m_RigidBody = GetComponent<Rigidbody>();
+        m_Capsule = GetComponent<CapsuleCollider>();
+        movementSettings.ForwardSpeed = movementSettings.NormalSpeed;
+        mouseLook.Init(transform, cam.transform);
+        ChangeSpeedPlayer(false);
+    }
+    
     public void ChangeSpeedPlayer(bool isRun)
     {
         movementSettings.ForwardSpeed = isRun ?  
@@ -136,17 +137,13 @@ using UnityStandardAssets.CrossPlatformInput;
 
     private void Update()
     {
-        RotateView();
-        //print("SPEED PLAYER = " + movementSettings.CurrentTargetSpeed);
-        //print("magnitude = " + GetComponent<Rigidbody>().velocity.magnitude);
-        
+        RotateView();        
         if (ControlFreak2.CF2Input.GetButtonDown("Jump") && !m_Jump)
         {
             m_Jump = true;
         }
     }
-
-
+    
         private void FixedUpdate()
         {
             GroundCheck();

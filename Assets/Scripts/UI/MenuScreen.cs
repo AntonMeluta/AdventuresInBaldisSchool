@@ -10,12 +10,12 @@ public class MenuScreen : MonoBehaviour
     public Button modeSandbox;
     public Button backButton;
 
-    public string moreGameRedirectRef;
+    [SerializeField]string moreGameRedirectRef;
 
     private void OnEnable()
     {
         //NeeedFix ...
-        bestScoreText.text = StatsManager.bestScore.ToString();
+        bestScoreText.text = StatsManager.BestScore.ToString();
     }
 
     private void Start()
