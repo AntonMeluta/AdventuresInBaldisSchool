@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class EvacuationButton : MonoBehaviour
 {
-    MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
+    private AudioController audioController;
+    private CameraControl cameraControl;
 
     public Material glassFine;
     public Material glassBroken;
 
+    [Inject]
+    private void ConstructorLike(PlayerController playerController, AudioController audio)
+    {
+        cameraControl = playerController.GetComponentInChildren<CameraControl>();
+        audioController = audio;
+    }
+    
     private void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -33,14 +43,14 @@ public class EvacuationButton : MonoBehaviour
 
     public void PlayerButtonPressed()
     {
-        AudioController.Instance.PlaySoundEffect(SoundEffect.CrashGlass);
-        AudioController.Instance.PlayMusic(SoundEffect.AlarmFire);        
+        audioController.PlaySoundEffect(SoundEffect.CrashGlass);
+        audioController.PlayMusic(SoundEffect.AlarmFire);        
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
-        Camera.main.GetComponent<CameraControl>().WaterDropEffect(true);
+        cameraControl.WaterDropEffect(true);
         foreach (var npc in allNpc)
         {
             npc.SaveCurentState();
-            npc.TransitionToState(new EscapeState(npc.PeriodPanic));
+            npc.TransitionToState(new EscapeState(npc.PeriodPanic, audioController));
         }    
             
     }

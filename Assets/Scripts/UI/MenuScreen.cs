@@ -2,19 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class MenuScreen : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public Text bestScoreText;
     public Button standartMode;
     public Button modeSandbox;
     public Button backButton;
 
-    [SerializeField]string moreGameRedirectRef;
+    [SerializeField]private string moreGameRedirectRef;
+
+    [Inject]
+    private void ConstructorLike(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     private void OnEnable()
     {
-        //NeeedFix ...
         bestScoreText.text = StatsManager.BestScore.ToString();
     }
 
@@ -27,19 +35,19 @@ public class MenuScreen : MonoBehaviour
 
     private void StandartModeStart()
     {
-        GameManager.Instance.UpdateGameMode(GameManager.GameMode.standart);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+        gameManager.UpdateGameMode(GameManager.GameMode.standart);
+        gameManager.UpdateGameState(GameManager.GameState.game);
     }
 
     private void SandboxModeStart()
     {
-        GameManager.Instance.UpdateGameMode(GameManager.GameMode.sandbox);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+        gameManager.UpdateGameMode(GameManager.GameMode.sandbox);
+        gameManager.UpdateGameState(GameManager.GameState.game);
     }
 
     private void BackButtonMenu()
     {
-        GameManager.Instance.UpdateGameState(GameManager.GameState.pregame);
+        gameManager.UpdateGameState(GameManager.GameState.pregame);
     }
 
 }

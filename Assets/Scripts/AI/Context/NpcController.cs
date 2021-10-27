@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 public class NpcController : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class NpcController : MonoBehaviour
     //Patrolling
     private NavMeshAgent agent;
     private int currentPointPatrolling;
-    public Transform[] targets;
+    private Transform[] targets;
     [SerializeField]private int minBorderInterval = 10;
     [SerializeField]private int maxBorderInterval = 25;
 
@@ -39,6 +40,13 @@ public class NpcController : MonoBehaviour
     public readonly NpcBaseState idleState = new IdleState();
     public readonly NpcBaseState patrolState = new PatrolState();
     public readonly NpcBaseState stalkingState = new StalkingState();
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController, Transform[] getTargets)
+    {
+        playerPosition = playerController.transform;
+        targets = getTargets;
+    }
 
     private void Awake()
     {
@@ -64,7 +72,6 @@ public class NpcController : MonoBehaviour
 
     private void Start()
     {
-        playerPosition = FindObjectOfType<PlayerController>().transform;
 
         switch (typeAi)
         {

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class QuizScreenProcess : MonoBehaviour
 {
+    private GameManager gameManager;
     private GirlInteaction girlInteaction;
     private bool isGirlQuiz;
 
@@ -21,6 +23,12 @@ public class QuizScreenProcess : MonoBehaviour
     public Slider sliderDifficulty;
 
     [SerializeField]float boostSpeedValueBaldis = 1.5f;
+
+    [Inject]
+    private void ConstructorLike(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     private void Awake()
     {
@@ -94,7 +102,7 @@ public class QuizScreenProcess : MonoBehaviour
             NewTask();
         else
         {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+            gameManager.UpdateGameState(GameManager.GameState.game);
             gameObject.SetActive(false);
 
             if (!isGirlQuiz)
@@ -117,7 +125,7 @@ public class QuizScreenProcess : MonoBehaviour
         }            
         else
         {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+            gameManager.UpdateGameState(GameManager.GameState.game);
             gameObject.SetActive(false);
 
             if (!isGirlQuiz)

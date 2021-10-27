@@ -1,14 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class PlayerInteractions : MonoBehaviour
 {
+    private GameManager gameManager;
+    private UIManager uiManager;
+    private AudioController audioController;
+
     private float distanceRay = 1.5f;
     private float delayToRestart = 8;
 
     public InventoryControl inventoryControl;
     public LayerMask needLayerCast;
+
+    [Inject]
+    private void ConstructorLike(UIManager ui, AudioController audio, GameManager gm)
+    {
+        uiManager = ui;
+        audioController = audio;
+        gameManager = gm;
+    }
 
     private void Update()
     {
@@ -29,17 +42,17 @@ public class PlayerInteractions : MonoBehaviour
             foreach (NpcController npc in allNpc)
                 npc.TransitionToState(npc.idleState);
 
-            AudioController.Instance.StopMusicGame();
-            AudioController.Instance.PlaySoundEffect(SoundEffect.WinSound);
-            UIManager.Instance.winScreen.SetActive(true);
+            audioController.StopMusicGame();
+            audioController.PlaySoundEffect(SoundEffect.WinSound);
+            uiManager.winScreen.SetActive(true);
             Invoke("EndGame", delayToRestart);
         }
     }
 
     private void EndGame()
     {
-        UIManager.Instance.winScreen.SetActive(false);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
+        uiManager.winScreen.SetActive(false);
+        gameManager.UpdateGameState(GameManager.GameState.menu);
     }
 }
 

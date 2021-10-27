@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     Vector3 startPosition;
     Quaternion startRotation;
 
+    public Transform pointForCastIce;
+
     private void Awake()
     {
         startPosition = transform.position;
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = startPosition;
         transform.rotation = startRotation;
+    }
+
+    public void PenaltyTransition(Transform transformCabinet)
+    {
+        transform.position = transformCabinet.position;
     }
 
     /*private void Update()

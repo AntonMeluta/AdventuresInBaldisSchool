@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class NotebookAction : MonoBehaviour, IItemUsing, IInteractiveWithPlayer
 {
+    private UIManager uIManager;
+
+    [Inject]
+    private void ConstructorLike(UIManager ui)
+    {
+        uIManager = ui;
+    }
 
     private void Start()
     {
@@ -23,7 +31,7 @@ public class NotebookAction : MonoBehaviour, IItemUsing, IInteractiveWithPlayer
     public void ItemUsedUp()
     {
         EventsBroker.StopHuntingFoPlayer();
-        UIManager.Instance.quizScreen.SetActive(true);
+        uIManager.quizScreen.SetActive(true);
         gameObject.SetActive(false);
     }
 }

@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class IceSceneMoving : MonoBehaviour
 {
     Vector3 direction;
     Rigidbody rb;
 
-    public Transform player;
-    public Transform targetVelocity;
+    private Transform player;
+    private Transform targetVelocity;
     [SerializeField]float speedMoving = 160;
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController)
+    {
+        player = playerController.transform;
+        targetVelocity = playerController.pointForCastIce;
+    }
 
     private void Awake()
     {

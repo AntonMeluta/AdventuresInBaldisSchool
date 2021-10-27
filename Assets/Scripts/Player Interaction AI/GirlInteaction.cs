@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 public class GirlInteaction : MonoBehaviour, IInteractionPlayerAI
 {
     private float delayToReturnPatol = 10;
+    private UIManager uIManager;
 
-    [SerializeField]float increaseSpeedBaldis = 1;
-    [SerializeField]bool isInGirlQuiz = false;
-    
+    [SerializeField]private float increaseSpeedBaldis = 1;
+    [SerializeField]private bool isInGirlQuiz = false;
+
+    [Inject]
+    private void ConstructorLike(UIManager ui)
+    {
+        uIManager = ui;
+    }
+
     private void OnEnable()
     {
         EventsBroker.EventRestartGame += RestartGame;
@@ -38,7 +46,7 @@ public class GirlInteaction : MonoBehaviour, IInteractionPlayerAI
     {
         EventsBroker.StopHuntingFoPlayer();
         isInGirlQuiz = true;
-        UIManager.Instance.quizScreen.SetActive(true);
+        uIManager.quizScreen.SetActive(true);
     }
     
     public void RepeatPatrolMoving()

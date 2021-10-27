@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class LessonBeginState : NpcBaseState
 {
+    private AudioController audioController;
     private float durationLessons;
     private float time;
 
-    public LessonBeginState(int timeLessons)
+    public LessonBeginState(int timeLessons, AudioController audio)
     {
+        audioController = audio;
         durationLessons = timeLessons;
     }
 
@@ -43,7 +45,7 @@ public class LessonBeginState : NpcBaseState
         if (time > durationLessons)
         {
             npc.ReturnToPrevState();
-            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            audioController.PlayMusic(SoundEffect.MainTheme);
         }
     }
     

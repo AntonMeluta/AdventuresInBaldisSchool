@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlayer
 {    
-    Vector3 startPosition;
-    Quaternion startQuaternion;
+    private Vector3 startPosition;
+    private Quaternion startQuaternion;
+    private UIManager uIManager;
 
     public ItemProperty_SO itemProperty_SO;
 
-    [SerializeField]bool isActiveIfRestart = true;
-    [SerializeField]bool isAccessForNpc = false;
+    [SerializeField]private bool isActiveIfRestart = true;
+    [SerializeField]private bool isAccessForNpc = false;
+
+    [Inject]
+    private void ConstructorLike(UIManager ui)
+    {
+        uIManager = ui;
+    }
 
     private void Awake()
     {
@@ -43,7 +51,7 @@ public class ItemProperty : MonoBehaviour, IInventoryItem, IInteractiveWithPlaye
     
     public void InteractionOccurred()
     {
-        UIManager.Instance.inventary.GetComponent<InventoryControl>().
+        uIManager.inventary.GetComponent<InventoryControl>().
             AddItem(this, gameObject);
     }
 

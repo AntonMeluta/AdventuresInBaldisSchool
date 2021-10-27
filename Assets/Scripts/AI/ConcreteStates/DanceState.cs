@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class DanceState : NpcBaseState
 {
-    float durationLessons;
-    float time;
+    AudioController audioController;
+    private float durationLessons;
+    private float time;
 
-    public DanceState(int timeLessons)
+    public DanceState(int timeLessons, AudioController audio)
     {
+        audioController = audio;
         durationLessons = timeLessons;
     }
 
     public override void EnterState(NpcController npc)
     {
         npc.SetExpression(npc.goodFace);
-        //Transform evacuationPoint = GameObject.Find("FirePanicExit").transform;
-        //npc.ToPointSpecial(npc.transform);
         npc.DancingNpc();
         npc.SetLayerNotCOllisionPlayer();
 
@@ -44,7 +44,7 @@ public class DanceState : NpcBaseState
         if (time > durationLessons)
         {
             npc.ReturnToPrevState();
-            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            audioController.PlayMusic(SoundEffect.MainTheme);
             npc.danceCicrle.SetActive(false);
             Camera.main.GetComponent<CameraControl>().DiscoSchool(false);
         }

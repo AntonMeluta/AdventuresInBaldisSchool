@@ -1,13 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 {
-    NpcController npcController;
+    private NpcController npcController;
+    private AudioController audioController;
+    private UIManager uIManager;
+    private GameManager gameManager;
 
-    [SerializeField]float delayToRestart = 5;
-   
+    [SerializeField]private float delayToRestart = 5;
+
+    [Inject]
+    private void ConstructorLike(UIManager ui, AudioController audio, GameManager gm)
+    {
+        uIManager = ui;
+        audioController = audio;
+        gameManager = gm;
+    }
+
     private void Start()
     {
         npcController = GetComponent<NpcController>();
@@ -15,9 +27,9 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
     
     public void InteractionProcess()
     {
-        AudioController.Instance.StopMusicGame();
-        AudioController.Instance.PlaySoundEffect(SoundEffect.LossSound);
-        UIManager.Instance.lossScreen.SetActive(true);
+        audioController.StopMusicGame();
+        audioController.PlaySoundEffect(SoundEffect.LossSound);
+        uIManager.lossScreen.SetActive(true);
         Invoke("EndGame", delayToRestart);
         NpcController[] allNpc = FindObjectsOfType<NpcController>();
         foreach (NpcController npc in allNpc)
@@ -26,8 +38,8 @@ public class BaldisInteraction : MonoBehaviour, IInteractionPlayerAI
 
     private void EndGame()
     {
-        UIManager.Instance.lossScreen.SetActive(false);
-        GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
+        uIManager.lossScreen.SetActive(false);
+        gameManager.UpdateGameState(GameManager.GameState.menu);
     }
     
 }

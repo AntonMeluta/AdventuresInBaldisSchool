@@ -1,17 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class TrapControl : MonoBehaviour
 {
-    Rigidbody rb;
-    SpriteRenderer spriteRenderer;
-    BoxCollider boxCollider;
+    private Rigidbody rb;
+    private SpriteRenderer spriteRenderer;
+    private BoxCollider boxCollider;
+    private AudioController audioController;
 
-    public Transform player;
+    private Transform player;
 
     public Sprite openedSprite;
     public Sprite closedSprite;
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController)
+    {
+        player = playerController.transform;
+    }
+
+    [Inject]
+    private void ConstructorLike(AudioController audio)
+    {
+        audioController = audio;
+    }
 
     private void Awake()
     {
@@ -29,7 +43,7 @@ public class TrapControl : MonoBehaviour
         transform.rotation = player.rotation;
         transform.position = player.position + Vector3.up + player.transform.forward;
 
-        AudioController.Instance.PlaySoundEffect(SoundEffect.TrapInstall);
+        audioController.PlaySoundEffect(SoundEffect.TrapInstall);
         EventsBroker.EventRestartGame += ForRestartGame;
     }
 

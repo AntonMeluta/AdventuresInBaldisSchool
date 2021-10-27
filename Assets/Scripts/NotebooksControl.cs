@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class NotebooksControl : MonoBehaviour
 {
-    int countPickupedNotebooks = 0;
+    private int countPickupedNotebooks = 0;
+    private GameManager gameManager;
+    private UIManager uIManager;
+    private AudioController audioController;
 
     public GameObject[] allNotebooksInScene;
     private int countNotebooksStandart;
     
     public EscapePointControl pointControl;
 
-    public CameraControl cameraControl;
+    private CameraControl cameraControl;
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController, 
+        GameManager gm, UIManager ui, AudioController audio)
+    {
+        cameraControl = playerController.GetComponentInChildren<CameraControl>();
+        gameManager = gm;
+        uIManager = ui;
+        audioController = audio;
+    }
 
     private void Awake()
     {
@@ -35,29 +49,29 @@ public class NotebooksControl : MonoBehaviour
         for (int i = 0; i < allNotebooksInScene.Length; i++)
             allNotebooksInScene[i].SetActive(true);
 
-        switch (GameManager.Instance.CurrentGameMode)
+        switch (gameManager.CurrentGameMode)
         {
             case GameManager.GameMode.standart:
-                UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text = 
+                uIManager.notebooksCounter.GetComponentInChildren<Text>().text = 
                     countPickupedNotebooks + "/" + countNotebooksStandart;
                 break;
             case GameManager.GameMode.sandbox:
-                UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+                uIManager.notebooksCounter.GetComponentInChildren<Text>().text =
                     countPickupedNotebooks.ToString();
                 break;
             default:
                 break;
         }
 
-        UIManager.Instance.notebooksCounter.SetActive(true);
-        UIManager.Instance.textToWin.SetActive(false);
+        uIManager.notebooksCounter.SetActive(true);
+        uIManager.textToWin.SetActive(false);
     }
 
     public void PlayerPickupNotebook()
     {
         countPickupedNotebooks++;
 
-        switch (GameManager.Instance.CurrentGameMode)
+        switch (gameManager.CurrentGameMode)
         {
             case GameManager.GameMode.standart:
                 UpdateScoreInStandartMode();
@@ -72,16 +86,16 @@ public class NotebooksControl : MonoBehaviour
 
     private void UpdateScoreInStandartMode()
     {
-        UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+        uIManager.notebooksCounter.GetComponentInChildren<Text>().text =
             countPickupedNotebooks + "/" + countNotebooksStandart;
 
         if (countPickupedNotebooks == /*countNotebooksStandart*/ 1)
         {
-            UIManager.Instance.textToWin.SetActive(true);
-            UIManager.Instance.notebooksCounter.SetActive(false);
+            uIManager.textToWin.SetActive(true);
+            uIManager.notebooksCounter.SetActive(false);
             pointControl.EscapeActivated();
-            NpcController[] allNpc = FindObjectsOfType<NpcController>();            
-            AudioController.Instance.PlayMusic(SoundEffect.DangerSound);
+            NpcController[] allNpc = FindObjectsOfType<NpcController>();
+            audioController.PlayMusic(SoundEffect.DangerSound);
             cameraControl.DangerModeCam();
             foreach (NpcController npc in allNpc)
                 npc.TransitionToState(npc.stalkingState);
@@ -91,7 +105,7 @@ public class NotebooksControl : MonoBehaviour
 
     private void UpdateScoreInSandboxMode()
     {
-        UIManager.Instance.notebooksCounter.GetComponentInChildren<Text>().text =
+        uIManager.notebooksCounter.GetComponentInChildren<Text>().text =
             countPickupedNotebooks.ToString();
 
         StatsManager.SaveResult(countPickupedNotebooks);

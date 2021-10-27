@@ -1,23 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
 {
     private NpcController npc;
+    private UIManager uIManager;
 
-    public Transform playerPos;
-    public Transform toilet;
+    private Transform playerPos;
+    private Transform toilet;
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController, UIManager ui)
+    {
+        playerPos = playerController.transform;
+        uIManager = ui;
+    }
 
     private void Start()
     {
         npc = GetComponent<NpcController>();
+        toilet = GameObject.Find("Toilet").transform;
     }
 
     public void InteractionProcess()
     {
         //Если у игрока есть шоколадка, монета или ключи, которые хулиган может отобрать
-        if (UIManager.Instance.inventary.
+        if (uIManager.inventary.
                 GetComponent<InventoryControl>().TributeToTheBully())
         {
             npc.TransitionToState(npc.patrolState);
@@ -28,7 +38,7 @@ public class BullyInteraction : MonoBehaviour, IInteractionPlayerAI
             EventsBroker.StopHuntingFoPlayer();
             Transform player = FindObjectOfType<PlayerController>().transform;
             playerPos.position = toilet.position;
-            UIManager.Instance.pantsOnHeadGame.SetActive(true);
+            uIManager.pantsOnHeadGame.SetActive(true);
             npc.TransitionToState(npc.patrolState);
         }
     }

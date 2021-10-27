@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class EscapeState : NpcBaseState
 {
-    float durationLessons;
-    float time;
+    private AudioController audioController;
+    private float durationLessons;
+    private float time;
 
-    public EscapeState(int timeLessons)
+    public EscapeState(int timeLessons, AudioController audio)
     {
+        audioController = audio;
         durationLessons = timeLessons;
     }
 
@@ -43,7 +46,7 @@ public class EscapeState : NpcBaseState
         if (time > durationLessons)
         {
             npc.ReturnToPrevState();
-            AudioController.Instance.PlayMusic(SoundEffect.MainTheme);
+            audioController.PlayMusic(SoundEffect.MainTheme);
             Camera.main.GetComponent<CameraControl>().WaterDropEffect(false);
         }            
     }

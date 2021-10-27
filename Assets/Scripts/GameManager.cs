@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     public GameObject[] controllersPrefabs;
 
-    GameState currentState = GameState.pregame;
-    GameMode gameMode;
+    private AudioController audioController;
+
+    private GameState currentState = GameState.pregame;
+    private GameMode gameMode;
+
+    [Inject]
+    private void ConstructorLike(AudioController audio)
+    {
+        audioController = audio;
+    }
 
     public enum GameMode
     {
@@ -25,10 +34,10 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        foreach (GameObject controller in controllersPrefabs)
+        /*foreach (GameObject controller in controllersPrefabs)
         {
             Instantiate(controller);
-        }         
+        }    */    
         UpdateGameState(GameState.pregame);
     }
 
@@ -60,7 +69,7 @@ public class GameManager : Singleton<GameManager>
                 Time.timeScale = 0;
                 break;
             case GameState.menu:
-                AudioController.Instance.StopMusicGame();                
+                audioController.StopMusicGame();                
                 Time.timeScale = 0;
                 break;
             case GameState.game:

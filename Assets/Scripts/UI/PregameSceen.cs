@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PregameSceen : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public Button startGame;
     public Button moreGames;
 
-    [SerializeField]string moreGameRedirectRef;
+    [SerializeField]private string moreGameRedirectRef;
+
+    [Inject]
+    private void ConstructorLike(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     private void Start()
     {
@@ -18,7 +27,7 @@ public class PregameSceen : MonoBehaviour
 
     private void StartGameAction()
     {
-        GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
+        gameManager.UpdateGameState(GameManager.GameState.menu);
     }
 
     private void MoreGamesAction()

@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class GameplayScreen : MonoBehaviour
 {
+    private GameManager gameManager;
+
     private bool isIconRun;
     private RigidbodyFirstPersonController personController;
 
@@ -14,6 +17,12 @@ public class GameplayScreen : MonoBehaviour
     public Image runButtonImage;
     public Sprite walkIcon;
     public Sprite runIcon;
+
+    [Inject]
+    private void ConstructorLike(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     private void Start()
     {
@@ -34,12 +43,12 @@ public class GameplayScreen : MonoBehaviour
 
     private void PauseButtonAction()
     {
-        GameManager.Instance.UpdateGameState(GameManager.GameState.pause);
+        gameManager.UpdateGameState(GameManager.GameState.pause);
     }
 
     private void ToMenuButtonAction()
     {
-        GameManager.Instance.UpdateGameState(GameManager.GameState.menu);
+        gameManager.UpdateGameState(GameManager.GameState.menu);
     }
 
     private void TapRunButton()

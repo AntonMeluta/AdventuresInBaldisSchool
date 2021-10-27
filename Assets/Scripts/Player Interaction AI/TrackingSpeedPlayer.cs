@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class TrackingSpeedPlayer : MonoBehaviour
 {
@@ -11,13 +12,17 @@ public class TrackingSpeedPlayer : MonoBehaviour
 
     [SerializeField]float rangeCheckPlayer = 60;
 
-    public RigidbodyFirstPersonController fpsPlayer;
     [SerializeField] float intervalToCheck = 0.2f;
+
+    [Inject]
+    private void ConstructorLike(PlayerController playerController)
+    {
+        playerRigidbody = playerController.GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
         npc = GetComponent<NpcController>();
-        playerRigidbody = FindObjectOfType<PlayerController>().GetComponent<Rigidbody>();
         isPenaltyPlayer = false;        
     }
 
@@ -43,7 +48,7 @@ public class TrackingSpeedPlayer : MonoBehaviour
         {
             yield return new WaitForSeconds(intervalToCheck);
 
-            distanceToPlayer = Vector3.Distance(transform.position, fpsPlayer.transform.position);
+            distanceToPlayer = Vector3.Distance(transform.position, playerRigidbody.transform.position);
             if (!isPenaltyPlayer && distanceToPlayer <= rangeCheckPlayer &&
                 playerRigidbody.velocity.magnitude > dangerSpeedBorderPlayer)
             {

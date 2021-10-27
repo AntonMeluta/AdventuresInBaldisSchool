@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
 {
@@ -9,13 +10,15 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     private int increaseDelayValue = 15;
     private TrackingSpeedPlayer trackingSpeedPlayer;
 
-    public RigidbodyFirstPersonController fpsPlayer;
+    private UIManager uIManager;
+    private PenaltyControl penaltyControl;
 
-    //Towards player after penalty
-    public Transform toWardsPlayer;
-
-    //Send delay for Time UI and enable
-    public GameObject doorLocker;
+    [Inject]
+    private void ConstructorLike(UIManager uI, PenaltyControl penalty)
+    {
+        uIManager = uI;
+        penaltyControl = penalty;
+    }
 
     private void Start()
     {
@@ -26,7 +29,6 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
     private void RestartGame()
     {
         CancelInvoke();
-        doorLocker.SetActive(false);
         GetComponent<TrackingSpeedPlayer>().UpdateStatusPenalty(false);
         delayPenalty = 15;
     }
@@ -37,22 +39,21 @@ public class PrincipalInteraction : MonoBehaviour, IInteractionPlayerAI
         npc.TransitionToState(npc.patrolState);
 
         EventsBroker.StopHuntingFoPlayer();
-
-        fpsPlayer.transform.position = toWardsPlayer.position;        
+        
         trackingSpeedPlayer.UpdateStatusPenalty(true);
-        UIManager.Instance.penaltyPlayerScreen.
+        uIManager.penaltyPlayerScreen.
             GetComponent<PenaltyPlayerScreen>().SetValueDelay(delayPenalty);
         Invoke("PenaltyPlayerFinished", delayPenalty);
-        UIManager.Instance.penaltyPlayerScreen.SetActive(true);
-        doorLocker.SetActive(true);
+        uIManager.penaltyPlayerScreen.SetActive(true);
 
-        GetComponent<NavMeshAgent>().destination = toWardsPlayer.position + Vector3.forward;
+        Transform targetPanalty = penaltyControl.PenaltyActivated();
+        GetComponent<NavMeshAgent>().destination = targetPanalty.position + Vector3.forward;
     }
 
     private void PenaltyPlayerFinished()
     {
-        doorLocker.SetActive(false);
-        UIManager.Instance.penaltyPlayerScreen.SetActive(false);
+        penaltyControl.PenaltyExit();
+        uIManager.penaltyPlayerScreen.SetActive(false);
         trackingSpeedPlayer.UpdateStatusPenalty(false);
         delayPenalty += increaseDelayValue;
         EventsBroker.RestartHuntingForPlayer();

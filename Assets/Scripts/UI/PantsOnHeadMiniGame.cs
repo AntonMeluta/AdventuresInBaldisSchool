@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class PantsOnHeadMiniGame : MonoBehaviour
 {
@@ -12,8 +13,16 @@ public class PantsOnHeadMiniGame : MonoBehaviour
     public RectTransform right;
     public RectTransform pants;
 
-    float deltaLerp;
-    float encreaseDelta = 0.2f;
+    private GameManager gameManager;
+
+    private float deltaLerp;
+    private float encreaseDelta = 0.2f;
+
+    [Inject]
+    private void ConstructorLike(GameManager gm)
+    {
+        gameManager = gm;
+    }
 
     private void Awake()
     {
@@ -59,7 +68,7 @@ public class PantsOnHeadMiniGame : MonoBehaviour
             yield return null;
         }
 
-        GameManager.Instance.UpdateGameState(GameManager.GameState.game);
+        gameManager.UpdateGameState(GameManager.GameState.game);
         EventsBroker.RestartHuntingForPlayer();
     }
     
