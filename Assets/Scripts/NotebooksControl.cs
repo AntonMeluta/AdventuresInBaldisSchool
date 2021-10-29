@@ -89,7 +89,7 @@ public class NotebooksControl : MonoBehaviour
         uIManager.notebooksCounter.GetComponentInChildren<Text>().text =
             countPickupedNotebooks + "/" + countNotebooksStandart;
 
-        if (countPickupedNotebooks == /*countNotebooksStandart*/ 1)
+        if (countPickupedNotebooks == countNotebooksStandart)
         {
             uIManager.textToWin.SetActive(true);
             uIManager.notebooksCounter.SetActive(false);

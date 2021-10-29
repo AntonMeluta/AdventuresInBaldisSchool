@@ -8,6 +8,12 @@ public class LocationInstaller : MonoInstaller, IInitializable
     public Transform[] targetsNpc;
     public PenaltyControl penaltyControl;
     public NpcMarker[] npcMarkers;
+    public AutomatShop automatShop;
+    public IceSceneMoving iceInScene;
+    public BellControl bellControl;
+    public TrapControl trapControl;
+    public EvacuationButton evacuationButton;
+    public TapeRecorderControl tapeRecorder;
 
     public override void InstallBindings()
     {
@@ -15,6 +21,12 @@ public class LocationInstaller : MonoInstaller, IInitializable
         BindPlayer();
         BindTargetsNpc();
         BindPenaltyController();
+        BindAutomatShop();
+        BindIcePlayer();
+        BindBellLearning();
+        BindTrap();
+        BindButtonEvacuation();
+        BindTapeRecorder();
 
         BindNpFactory();
     }
@@ -52,6 +64,54 @@ public class LocationInstaller : MonoInstaller, IInitializable
         Container.
             Bind<PenaltyControl>().
             FromInstance(penaltyControl).
+            AsSingle();
+    }
+
+    private void BindAutomatShop()
+    {
+        Container.
+            Bind<AutomatShop>().
+            FromInstance(automatShop).
+            AsSingle();
+    }
+
+    private void BindIcePlayer()
+    {
+        Container.
+            Bind<IceSceneMoving>().
+            FromInstance(iceInScene).
+            AsSingle();
+    }
+
+    private void BindBellLearning()
+    {
+        Container.
+            Bind<BellControl>().
+            FromInstance(bellControl).
+            AsSingle();
+    }
+
+    private void BindTrap()
+    {
+        Container.
+            Bind<TrapControl>().
+            FromInstance(trapControl).
+            AsSingle();
+    }
+
+    private void BindButtonEvacuation()
+    {
+        Container.
+            Bind<EvacuationButton>().
+            FromInstance(evacuationButton).
+            AsSingle();
+    }
+
+    private void BindTapeRecorder()
+    {
+        Container.
+            Bind<TapeRecorderControl>().
+            FromInstance(tapeRecorder).
             AsSingle();
     }
 

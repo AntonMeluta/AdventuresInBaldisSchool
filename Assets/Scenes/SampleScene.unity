@@ -265,8 +265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be8e1a65cbe75543887ed884a50f39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evacuationButtonTransform: {fileID: 8590240252642811748}
-  evacuationButton: {fileID: 8590240252642811749}
   range: 2
 --- !u!1 &255944493
 GameObject:
@@ -537,7 +535,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a583e0ba1568c644dad5c6e2f32df587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapInScene: {fileID: 8590240252054754937}
 --- !u!1 &458728059
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0db1660436815a4cabbe38a050f04b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iceInScene: {fileID: 8590240253472043617}
 --- !u!1 &1312674144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,6 +1126,12 @@ MonoBehaviour:
   - {fileID: 1604354411}
   - {fileID: 2135836040}
   - {fileID: 1501465005}
+  automatShop: {fileID: 8590240254005171328}
+  iceInScene: {fileID: 8590240253472043619}
+  bellControl: {fileID: 8590240252632839904}
+  trapControl: {fileID: 8590240252054754943}
+  evacuationButton: {fileID: 8590240252642811749}
+  tapeRecorder: {fileID: 1711899902}
 --- !u!1 &1604354409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,11 +1206,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.044740077, y: 0.007727907, z: 0.028619265}
   m_Center: {x: -0.0050818087, y: 3.4924602e-10, z: 0.014309633}
---- !u!4 &1711899904 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd1a3f55cff3bdc42aa5a31f5bef75eb, type: 3}
-  m_PrefabInstance: {fileID: 1755691890}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1755691890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1440,9 +1437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca4f1d5cf84e1741a45d593e58112e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  tapeRecorderPos: {fileID: 1711899904}
-  tapeRecorder: {fileID: 1711899902}
   range: 3
 --- !u!65 &2023326134
 BoxCollider:
@@ -3592,7 +3586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0db1660436815a4cabbe38a050f04b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iceInScene: {fileID: 8590240253472043617}
 --- !u!65 &8590240252048923072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4040,8 +4033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be8e1a65cbe75543887ed884a50f39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evacuationButtonTransform: {fileID: 8590240252642811748}
-  evacuationButton: {fileID: 8590240252642811749}
   range: 2
 --- !u!65 &8590240252062384736
 BoxCollider:
@@ -10795,9 +10786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e52e443033e85947b6d0f7d89b57668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  bellTransform: {fileID: 8590240252121728617}
-  bellInScene: {fileID: 8590240252632839904}
   range: 3
 --- !u!65 &8590240252397814496
 BoxCollider:
@@ -13435,8 +13423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef93dae56c9279458ee3795c52ec8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  automatPos: {fileID: 0}
-  energieBar: {fileID: 0}
   range: 1.5
 --- !u!33 &8590240252505784264
 MeshFilter:
@@ -18161,9 +18147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca4f1d5cf84e1741a45d593e58112e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  tapeRecorderPos: {fileID: 1711899904}
-  tapeRecorder: {fileID: 1711899902}
   range: 3
 --- !u!1 &8590240252759858593
 GameObject:
@@ -22533,7 +22516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a583e0ba1568c644dad5c6e2f32df587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapInScene: {fileID: 8590240252054754937}
 --- !u!65 &8590240252968677305
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42035,8 +42017,9 @@ GameObject:
   - component: {fileID: 8590240254005171312}
   - component: {fileID: 8590240254005171327}
   - component: {fileID: 8590240254005171313}
+  - component: {fileID: 8590240254005171328}
   m_Layer: 0
-  m_Name: AutomatDrink
+  m_Name: AutomatInteractive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42097,6 +42080,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8590240254005171328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8590240254005171325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c2efe3c3508cf448b1e7b366d92e60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energieBar: {fileID: 8590240252960975126}
 --- !u!1 &8590240254011385090
 GameObject:
   m_ObjectHideFlags: 0

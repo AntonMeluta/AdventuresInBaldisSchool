@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class IceAction : MonoBehaviour, IItemUsing
 {
-    public GameObject iceInScene;
+    private GameObject iceInScene;
+
+    [Inject]
+    private void ConstructorLike(IceSceneMoving ice)
+    {
+        iceInScene = ice.gameObject;
+    }
 
     public void ItemUsedUp()
     {

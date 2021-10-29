@@ -6,15 +6,17 @@ using Zenject;
 public class HammerAction : MonoBehaviour, IItemUsing
 {
     private Transform player;
-    public Transform evacuationButtonTransform;
-    public EvacuationButton evacuationButton;
+    private Transform evacuationButtonTransform;
+    private EvacuationButton evacuationButton;
 
     public float range = 1.5f;
 
     [Inject]
-    private void ConstructorLike(PlayerController playerController)
+    private void ConstructorLike(PlayerController playerController, EvacuationButton button)
     {
         player = playerController.transform;
+        evacuationButtonTransform = button.transform;
+        evacuationButton = button;
     }
 
     public void ItemUsedUp()
@@ -23,9 +25,6 @@ public class HammerAction : MonoBehaviour, IItemUsing
         {
             evacuationButton.PlayerBrokenGlass();
             FindObjectOfType<InventoryControl>().RemoveSelectedItem();
-        }
-            
+        }            
     }
-
-   
 }
